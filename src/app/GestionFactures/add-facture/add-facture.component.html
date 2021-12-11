@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Invoice</h1>
+        <address contenteditable>
+            <p>Jonathan Neal</p>
+            <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
+            <p>(800) 555-1234</p>
+        </address>
+        <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file"
+                accept="image/*"></span>
+    </header>
+
+    <form [formGroup]="form">
+        <article>
+            <h1>Recipient</h1>
+            <address contenteditable>
+                <p><select [ngModel]="idclient" (change)="changeIdClient($event)">
+                        <option *ngFor="let item of clients; " formControlName="client">
+                            {{item.nom}}
+                        </option>
+                    </select> 
+                </p>
+            </address>
+
+
+
+
+            <table class="meta">
+                <tr>
+                    <th><span contenteditable>Invoice #</span></th>
+                    <td><span contenteditable>101138</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Date</span></th>
+                    <td><span contenteditable>January 1, 2012</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Due</span></th>
+                    <td><span id="prefix" contenteditable>DT</span><span> 600.00</span></td>
+                </tr>
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span>Item</span></th>
+                        <th><span>Description</span></th>
+                        <th><span>Product Price</span></th>
+                        <th><span>Quantity</span></th>
+                        <th><span>Total Price</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td><a class="cut">-</a>
+                            <select  (change)="changeIdprod($event)">
+                                <option *ngFor="let produit of produits;" formControlName="title" >
+                                    {{produit.libelle}}
+                                </option>
+                            </select>
+                        </td>
+                        <td><span contenteditable>{{codeproduit}}</span></td>
+                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit" formControlName="prix1" > {{idproduit}}</span></td>
+                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" ></td>
+                        <td><span data-prefix>DT</span><span > {{totaldetailProduit}}</span></td>
+                        <td>
+                            <button  type="submit" class="btn btn-success" (click)="addDetailFacture()">Save</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table class="balance">
+                <tr>
+                    <th><span contenteditable>Total</span></th>
+                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Paid</span></th>
+                    <td><span data-prefix>DT </span><span contenteditable> 0.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Balance Due</span></th>
+                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                </tr>
+            </table>
+
+
+
+            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="addFacture()">Add Facture</button>
+        </article>
+    </form>
+    <aside>
+        <h1><span contenteditable>Additional Notes</span></h1>
+    </aside>
+</body>
+
+</html>
+
