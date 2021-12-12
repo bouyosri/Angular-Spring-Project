@@ -31,11 +31,11 @@ export class DetailfactureService {
   }
 
   deleteDetailFactureById(id:number){
-    return this.http.delete(this.baseURL+'/detailfacture/remove-detailfacture/'+id,this.httpOptions)
+    return this.http.delete(this.baseURL+'/detailfactures/remove-Detail-Facture/'+id,this.httpOptions)
   }
   
   getDetailFactureByFactureId(id:number): Observable<DetailFacture[]>{
-    return this.http.get<DetailFacture[]>(this.baseURL+'/detailfacture/retrieve-detailfactureByFactureId/'+id,this.httpOptions)
+    return this.http.get<DetailFacture[]>(this.baseURL+'/detailfactures/retreive-Detail-Facture/'+id,this.httpOptions)
   }
   
 

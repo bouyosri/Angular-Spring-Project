@@ -1,187 +1,112 @@
-<form #f="ngForm">
+<html>
 
-    <div class="container mt-2">
-        <button class="btn btn-primary">Export To PDF</button>
-      </div>
-      <div class="container mt-4 mb-3" id="pdfTable" #pdfTable>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-11">
-                <div class="card">
-                    <div class="d-flex flex-row p-2">
-                        <table>
-                            <tr>
-                                <td>
-                                    <img src="../../../assets/img/esprti-removebg-preview.png" alt="" >
-                                </td>
-                                <td>
-                                    <div class="d-flex flex-column"> <span class="font-weight-bold">Purchase Invoice</span> 
-                                        <small>Invoice Number : {{facture.idFacture}}</small> 
-                                        <small>Invoice Date : {{dateFacture}} </small>
-                                    </div> 
-                                </td>
-                            </tr>
-                        </table>
-                         
-                    </div>
-                    
-                    <hr>
-                    <div class="table-responsive p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <td>To</td>
-                                    <td>From</td>
-                                </tr>
-                                <tr class="content">
-                                    <td class="font-weight-bold">
-                                        <h5 *ngIf="!facture.client">Select Client</h5>
-                                        <select name="client" class="form-control" [(ngModel)]="facture.client" *ngIf="facture.active">
-                                            <option *ngFor="let c of clients" [ngValue]="c">{{c.nom}}</option>
-                                          </select>
-                                        <div *ngIf="facture.client">
-                                            <br>
-                                            Mr/Mrs : {{facture.client.nom}} {{facture.client.prenom}} <br>
-                                            E-mail : {{facture.client.email}} <br>
-                                            {{facture.client.catClient}}                                     
-                                        </div>
-                                    <td class="font-weight-bold">ESPRIT <br> Ecole Sup Privée d'Ingénierie et de Technologies <br> tunis,Tunisia</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="products p-2">
-                        <table class="table table-borderless">
-                            <thead class="thead-light">
-                                <tr class="add">
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Discount %</th>
-                                    <th scope="col">Discount Amount</th>
-                                    <th scope="col" class="text-center">Total Amount</th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="content" *ngFor="let df of details">
-                                    <td>{{df.produit.libelle}}</td>
-                                    <td>{{df.qte}}</td>
-                                    <td>{{df.pourcentageRemise}}</td>
-                                    <td class="text-center">{{df.montantRemise}}</td>
-                                    <td class="text-center">{{df.prixTotal}}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-success" (click)="setUpdateDetailFacture(df)" *ngIf="facture.active"><i class="fa fa-wrench" aria-hidden="true"> </i></button>  
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger" (click)="deleteDetailFacture(df.idDetailFacture)" *ngIf="facture.active"><i class="fa fa-times" aria-hidden="true"> </i></button>
-                                
-                                    </td>
-                                </tr>
-                                <tr class="content" hidden="facture.active">
-                                    <td>
-                                        <select name="product" #product="ngModel" class="form-control" [(ngModel)]="detailFacture.produit" required (change)="calculerDetailFactureElements()">
-                                        <option *ngFor="let p of produits" [ngValue]="p" >{{p.libelle}}</option>
-                                      </select>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="number"  name="quantity" [(ngModel)]="detailFacture.qte" #quantity="ngModel" required min="1" (change)="calculerDetailFactureElements()">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="number" name="discount" [(ngModel)]="detailFacture.pourcentageRemise" #discount="ngModel" required min="0" (change)="calculerDetailFactureElements()">
-                                    </td>
-                                    <td class="text-center">{{detailFacture.montantRemise}}</td>
-                                    <td class="text-center">{{detailFacture.prixTotal}}</td>
-                                    <td *ngIf="!detailFacture.idDetailFacture">
-                                        <button class="btn btn-sm btn-success" (click)="saveOrUpdateDetailFacture()" ><i class="fa fa-check" aria-hidden="true"> add</i></button>
-                                    </td>
-                                    <td *ngIf="detailFacture.idDetailFacture">
-                                        <button class="btn btn-sm btn-success" (click)="saveOrUpdateDetailFacture()"><i class="fa fa-check" aria-hidden="true"> Update</i></button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger" (click)="cancelDetailFacture()" ><i class="fa fa-times" aria-hidden="true"> cancel</i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div *ngIf="product.errors && product.touched ">
-                                <div class="alert alert-danger" role="alert" *ngIf="product.errors.required">
-                                    Choose product
-                                </div>
-                        </div> 
-                        <div *ngIf="quantity.errors && quantity.touched ">
-                                <div class="alert alert-danger" role="alert" *ngIf="quantity.errors.required">
-                                    Quantity required
-                                </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="quantity.errors.min">
-                                    Quantity must be a positive integer
-                                </div>
-                        </div>
-                        <div *ngIf="discount.errors && discount.touched ">
-                            <div class="alert alert-danger" role="alert" *ngIf="discount.errors.required">
-                                discount required it can be set to zero "0"
-                            </div>
-                            <div class="alert alert-danger" role="alert" *ngIf="discount.errors.min">
-                                discount can't be negative
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="products p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <td></td>
-                                    <td>Subtotal</td>
-                                    <td>Total Discount</td>
-                                    <td>Paid or Not</td>
-                                    <td class="text-center">Total</td>
-                                </tr>
-                                <tr class="content">
-                                    <td></td>
-                                    <td>{{facture.montantFacture}}</td>
-                                    <td>{{facture.montantRemise}}</td>
-                                    <td *ngIf="facture.active" style="color: red;">Not paid</td>
-                                    <td *ngIf="!facture.active" style="color: green;">Paid</td>
-                                    <td class="text-center">{{facture.montantTotal}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="message">
-                        {{message}}
-                    </div>
-                    <div class="row">
-                        <div class="container">
-                            <div class="row">
-                              <div class="col-sm" >
-                                  <button class="btn btn-danger" (click)="deleteFacture()"><i class="fa fa-trash" aria-hidden="true"> Delete </i></button>
-                              </div>
-                              <div class="col-sm">
-                                <button class="btn btn-warning" (click)="saveFacture()" *ngIf="facture.active"><i class="far fa-save"> Save </i></button>
-                              </div>
-                              <div class="col-sm">
-                                  <button class="btn btn-success" (click)="payFacture()" *ngIf="facture.active"><i class="fas fa-cash-register"> Pay </i></button>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="address p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <td><h3>Bank Details</h3></td>
-                                </tr>
-                                <tr class="content">
-                                    <td> Bank Name : AMEN BANK <br> Swift Code : 123456789 <br> Account Holder : ESPRIT<br> Account Number : 123456789 <br> </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+    <script src="script.js"></script>
+</head>
+
+<body style="    height: fit-content;">
+    <header>
+        <h1>Invoice</h1>
+        <address contenteditable>
+            <p>Jonathan Neal</p>
+            <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
+            <p>(800) 555-1234</p>
+        </address>
+        <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file"
+                accept="image/*"></span>
+    </header>
+
+    <form [formGroup]="form">
+        <article>
+            <h1>Recipient</h1>
+            <address contenteditable>
+                <p><select [ngModel]="idclient" (change)="changeIdClient($event)">
+                        <option *ngFor="let item of clients; " formControlName="client">
+                            {{item.nom}}
+                        </option>
+                    </select> 
+                </p>
+            </address>
+
+
+
+
+            <table class="meta">
+                <tr>
+                    <th><span contenteditable>Invoice #</span></th>
+                    <td><span contenteditable>101138</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Date</span></th>
+                    <td><span contenteditable>January 1, 2012</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Due</span></th>
+                    <td><span id="prefix" contenteditable>DT</span><span> 600.00</span></td>
+                </tr>
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span>Id</span></th>
+                        <th><span>Item</span></th>
+                        <th><span>Pourcentage Remise %</span></th>
+                        <th><span>Product Price</span></th>
+                        <th><span>Quantity</span></th>
+                        <th><span>Total Price</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dfacture of details; index as i;">
+                        <td ng-hide="myValue">
+                            <a class="cut" (click)="deleteDetailFacture(dfacture.idDetailFacture)">-</a>
+                            {{dfacture.idDetailFacture}}</td>
+                        <td>
+                            <select (change)="changeIdprod($event)">
+                                <option *ngFor="let produit of produits;" formControlName="title" [value]="produit.libelle" 
+                                [attr.selected]="dfacture.produit.libelle==produit.libelle ? true : null" required>
+                                    {{produit.libelle}}
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="remiseProduit" [ngModel]="remiseProduit" value="0" min="0" placeholder="0" max="100" (change)="getremise($event)" required></td>
+                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit" formControlName="prix1" > {{dfacture.produit.prixUnitaire}}</span></td>
+                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" required></td>
+                        <td><span data-prefix>DT</span><span > {{dfacture.prixTotal}}</span></td>
+                        <td>
+                            <input   type="button" class="btn btn-success" (click)="editDetailFacture(dfacture.idDetailFacture)" value="Save">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table class="balance">
+                <tr>
+                    <th><span contenteditable>Total</span></th>
+                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Paid</span></th>
+                    <td><span data-prefix>DT </span><span contenteditable> 0.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Balance Due</span></th>
+                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                </tr>
+            </table>
+
+
+
+            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="addFacture()">Add Facture</button>
+        </article>
     </form>
-    
+    <aside>
+        <h1><span contenteditable>Additional Notes</span></h1>
+    </aside>
+</body>
+
+</html>
+

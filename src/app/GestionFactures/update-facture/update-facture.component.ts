@@ -14,92 +14,224 @@ import { FactureService } from 'src/app/Services/facture.service';
   styleUrls: ['./update-facture.component.css']
 })
 export class UpdateFactureComponent implements OnInit {
+
+
+  //PDF genrate button click function
   facture: Facture = new Facture();
-  parameter: number;
+  detailFacturemiloul: DetailFacture = new DetailFacture();
   message: string = "";
   selectedObject: any;
   dateFacture: string;
-  detailFacture: DetailFacture;
+  
+  
   prixTotal: number = 0;
   clients: Client[];
   produits: Produit[];
   details: DetailFacture[];
-  myForm: FormGroup;
+  client: any;
 
-  constructor(private factureService: FactureService, private dfService: DetailfactureService, private route: ActivatedRoute, private router: Router) { }
+
+
+  idclient: any;
+  idproduit: any;
+  codeproduit : any;
+  prixProduit:any;
+  totaldetailProduit:any;
+  produit:Produit;
+  remiseProduit:any;
+  qte:any;
+  parameter:any;
+
+
+
+  detailFacture: DetailFacture= {
+    idDetailFacture: 0,
+    qte: 0,
+    prixTotal: 0,
+    pourcentageRemise: 0,
+    montantRemise: 0,
+    facture: null,
+    produit: null
+  };
+  
+
+  form: FormGroup;
+  detailform: FormGroup;
+
+  constructor(private factureService: FactureService, private route: ActivatedRoute, private dfService: DetailfactureService, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.parameter = params['id'];
-    })
-    this.getFacturefrompath(this.parameter);
+    
     this.getClients();
     this.getProducts();
-    this.createDetailFacture();
-    this.myForm = new FormGroup({
-      // dateBill:new FormControl(this.detailFacture.produit, Validators.required),
-      discountAmount: new FormControl(this.detailFacture.qte),
-      Status: new FormControl(this.detailFacture.pourcentageRemise)
-    })
+    /* this.createDetailFacture(); */
+      this.route.params.subscribe(params => {
+        this.parameter = params['id'];
+      })
+
+    this.getFacture(this.parameter);
+  
   }
 
-  createDetailFacture() {
-    this.detailFacture = new DetailFacture();
-    this.detailFacture.facture = this.facture;
-    this.detailFacture.produit = new Produit();
-    this.detailFacture.qte = 1;
-    this.detailFacture.pourcentageRemise = 0;
-    this.detailFacture.montantRemise = 0;
-    this.detailFacture.prixTotal = 0;
+
+  changeIdClient(value): void {
+
+    console.log((value.target as HTMLInputElement).value);
+    this.idclient=(value.target as HTMLInputElement).value;
+    console.log(this.idclient);
   }
+
+
+  getremise(value): void {
+
+    
+    
+    let remise;
+    remise=(value.target as HTMLInputElement).value;
+    console.log(remise);
+    console.log(this.remiseProduit);
+    this.remiseProduit=remise;
+    remise = (this.remiseProduit*this.prixProduit*this.qte)/100;
+    this.totaldetailProduit=(this.qte*this.prixProduit)-remise ;
+    console.log("remise = "+this.remiseProduit);
+    
+  }
+
+  calculatePrix(value): void {
+
+    
+    
+    let qte;
+    qte=(value.target as HTMLInputElement).value;
+    this.qte=qte;
+    console.log(qte);
+    console.log(this.idproduit);
+    this.prixProduit=this.idproduit;
+    let totalProduit;
+    let remise;
+    remise = (this.remiseProduit*this.prixProduit*qte)/100;
+    this.totaldetailProduit=(qte*this.prixProduit)-remise ;
+    console.log("prix total = "+this.totaldetailProduit);
+    
+  }
+
+  changeIdprod(value): void {
+
+    this.idproduit=(value.target as HTMLInputElement).value;
+    
+    let currentName=(value.target as HTMLInputElement).value;
+    let currentprix;
+    let currentcode;
+    let localP:Produit;
+    this.produits.forEach(function (value) {
+      
+      if(value.libelle==currentName)
+      {
+        currentprix=value.prixUnitaire;
+        currentcode=value.code;
+        localP=value;
+
+      }
+      
+      
+      
+      
+    });
+    this.idproduit=currentprix;
+    this.codeproduit=currentcode;
+    this.produit=localP;
+    console.log("current Produit"+this.produit.libelle);
+  }
+
+  addFacture() {
+    let currentName=this.idclient;
+    let currentId;
+    this.clients.forEach(function (value) {
+      if(value.nom==currentName)
+      {
+        currentId=value.idClient;
+        console.log("eee"+currentId);
+      }
+      
+      
+      
+    });
+
+    
+
+        this.factureService.addFacture(currentId).subscribe(
+          res => {
+            console.log('Facture created!');
+            this.facture = res;
+            /*this.dateFacture = this.facture.dateFacture + "";
+            this.dateFacture = this.dateFacture.substring(0, 10)
+            this.createDetailFacture();
+            this.getDetailFactures(this.facture.idFacture);*/
+            console.log(this.facture)
+          });
+        err => {
+          console.log(err);
+        }
+    
+  }
+  
+
+
+
+  
 
   // --------------------------- Retrieving methods ----------------------------
+  
+
+ 
   getClients() {
-    this.factureService.getClients()
+    this.factureService.getClients().subscribe(
+      (data) => {
+        this.clients = data;
+      });
   }
   getProducts() {
     this.factureService.getProducts().subscribe(
+
+      (data) => {
+
+        this.produits = data;
+
+      });
+  }
+  /*getProducts() {
+    this.factureService.getProducts().subscribe(
       res => {
-        console.log('Clients :');
         this.produits = res;
         console.log(this.produits);
       });
     err => {
       console.log(err);
     }
-  }
+  }*/
 
-  getDetailFactures(id: number) {
+  getDetailFactures(id: number) : DetailFacture {
+    let detailfacture;
     this.dfService.getDetailFactureByFactureId(id).subscribe(
+      
       res => {
         console.log('details :');
         this.details = res;
+        detailfacture= res;
         console.log(this.details);
-        this.getFacture(this.facture.idFacture);
       });
     err => {
       console.log(err);
     }
-  }
-  getFacturefrompath(id: number) {
-    this.factureService.getFactureById(id).subscribe(
-      res => {
-        console.log('Facture :');
-        this.facture = res;
-        console.log(this.facture);
-        this.createDetailFacture();
-        this.getDetailFactures(this.facture.idFacture);
-      });
-    err => {
-      console.log(err);
-    }
-  }
+    return detailfacture;
+  } 
   getFacture(id: number) {
     this.factureService.getFactureById(id).subscribe(
       res => {
-        console.log('Facture :');
         this.facture = res;
+        this.details=this.facture.detailFactures;
         console.log(this.facture);
+        console.log(this.details);
       });
     err => {
       console.log(err);
@@ -108,27 +240,20 @@ export class UpdateFactureComponent implements OnInit {
 
   // --------------------------- Facture Methods ------------------------------------
 
-  addFacture() {
-    this.factureService.addFacture(this.parameter).subscribe(
-      res => {
-        console.log('Facture created!');
-        this.facture = res;
-        this.dateFacture = this.facture.dateFacture + "";
-        this.dateFacture = this.dateFacture.substring(0, 10)
-        this.createDetailFacture();
-        this.getDetailFactures(this.facture.idFacture);
-        console.log(this.facture)
-      });
-    err => {
-      console.log(err);
-    }
-  }
+  /*submit(){
+    console.log(this.form.value);
+    this.factureService.addFacture(this.id, this.form.value).subscribe(res => {
+         console.log('Post updated successfully!');
+         this.router.navigateByUrl('post/index');
+    })
+  }*/
+
+ 
   deleteFacture() {
     this.factureService.deleteFactureById(this.facture.idFacture).subscribe(
       res => {
         console.log('Facture deleted!');
-        this.router.navigate(['facturenonpayer'])
-
+        this.router.navigate(['facturenonpayer']);
       });
     err => {
       console.log(err);
@@ -143,7 +268,7 @@ export class UpdateFactureComponent implements OnInit {
           this.facture = res;
           this.dateFacture = this.facture.dateFacture + "";
           this.dateFacture = this.dateFacture.substring(0, 10)
-          this.router.navigate(['facturenonpayer'])
+          this.router.navigate(['facturenonpayer']);
         });
       err => {
         console.log(err);
@@ -174,7 +299,72 @@ export class UpdateFactureComponent implements OnInit {
     }
   }
   // ------------------- DetailFacture STUFF -----------------------
-  saveOrUpdateDetailFacture() {
+  addDetailFacture(){
+    console.log("inside detail "+this.produit.libelle);
+    
+    this.detailFacture.produit=this.produit;
+    this.detailFacture.pourcentageRemise=this.remiseProduit;
+    this.detailFacture.qte=this.qte;
+    console.log(this.detailFacture);
+    this.dfService.addDetailFacture(this.detailFacture,this.facture.idFacture).subscribe(
+      res => {
+        
+        
+        console.log('Detail Facture created!');
+        this.detailFacture = res;
+        /*this.dateFacture = this.facture.dateFacture + "";
+        this.dateFacture = this.dateFacture.substring(0, 10)
+        this.createDetailFacture();
+        this.getDetailFactures(this.facture.idFacture);
+        console.log(this.facture)*/
+      });
+    err => {
+      console.log(err);
+    }
+  }
+
+
+  editDetailFacture(id:any){
+    console.log("inside detail "+this.produit.libelle);
+    this.detailFacture.idDetailFacture=id;
+    console.log('its id'+this.detailFacture.idDetailFacture);
+    
+    this.detailFacture.produit=this.produit;
+    this.detailFacture.pourcentageRemise=this.remiseProduit;
+    this.detailFacture.qte=this.qte;
+    console.log(this.detailFacture);
+    this.dfService.addDetailFacture(this.detailFacture,this.facture.idFacture).subscribe(
+      res => {
+        
+        
+        console.log('Detail Facture created!');
+        this.detailFacture = res;
+        /*this.dateFacture = this.facture.dateFacture + "";
+        this.dateFacture = this.dateFacture.substring(0, 10)
+        this.createDetailFacture();
+        this.getDetailFactures(this.facture.idFacture);
+        console.log(this.facture)*/
+      });
+    err => {
+      console.log(err);
+    }
+  }
+
+
+  deleteDetailFacture(id: number) {
+    console.log(id);
+    this.dfService.deleteDetailFactureById(id).subscribe(
+      res => {
+        console.log('detail deleted');
+        this.getDetailFactures(this.facture.idFacture);
+      });
+    err => {
+      console.log(err);
+    }
+  }
+
+
+  /*saveOrUpdateDetailFacture() {
     if (this.detailFacture.idDetailFacture) {
       this.updateDetailFacture();
     } else {
@@ -182,12 +372,11 @@ export class UpdateFactureComponent implements OnInit {
     }
   }
   addDetailFacture() {
-    this.dfService.addDetailFacture(this.detailFacture,this.facture.idFacture).subscribe(
+    this.dfService.addDetailFacture(this.detailFacture).subscribe(
       res => {
         console.log('detail added :');
         this.detailFacture = res;
         console.log(this.detailFacture);
-        this.detailFacture = new DetailFacture();
         this.createDetailFacture();
         this.getDetailFactures(this.facture.idFacture);
       });
@@ -232,8 +421,19 @@ export class UpdateFactureComponent implements OnInit {
     this.detailFacture.montantRemise = this.detailFacture.produit.prixUnitaire * this.detailFacture.qte * this.detailFacture.pourcentageRemise / 100;
     this.detailFacture.prixTotal = this.detailFacture.produit.prixUnitaire * this.detailFacture.qte - this.detailFacture.montantRemise;
   }
-  edit() {
-    console.log(this.detailFacture);
-  }
+  calculerFactureElements() {
+    for (var value of this.details) {
+      this.facture.montantTotal += value.prixTotal;
+      this.facture.montantRemise += value.montantRemise;
+      this.facture.montantFacture += value.montantRemise + value.prixTotal;
+    }
+    console.log(this.facture);
+  }*/
+
+
+
+
+
+
 
 }

@@ -93,6 +93,8 @@ export class AddFactureComponent implements OnInit {
     console.log(remise);
     console.log(this.remiseProduit);
     this.remiseProduit=remise;
+    remise = (this.remiseProduit*this.prixProduit*this.qte)/100;
+    this.totaldetailProduit=(this.qte*this.prixProduit)-remise ;
     console.log("remise = "+this.remiseProduit);
     
   }
