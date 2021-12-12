@@ -52,30 +52,31 @@
                 <thead>
                     <tr>
                         <th><span>Item</span></th>
-                        <th><span>Description</span></th>
+                        <th><span>Pourcentage Remise %</span></th>
                         <th><span>Product Price</span></th>
                         <th><span>Quantity</span></th>
                         <th><span>Total Price</span></th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <ng-form  [formGroup]="detailform" novalidate>
                     <tr>
                         <td><a class="cut">-</a>
                             <select  (change)="changeIdprod($event)">
-                                <option *ngFor="let produit of produits;" formControlName="title" >
+                                <option *ngFor="let produit of produits;" formControlName="title" required>
                                     {{produit.libelle}}
                                 </option>
                             </select>
                         </td>
-                        <td><span contenteditable>{{codeproduit}}</span></td>
+                        <td><input type="number" name="remiseProduit" [ngModel]="remiseProduit" value="0" min="0" placeholder="0" max="100" (change)="getremise($event)" required></td>
                         <td><span data-prefix >DT</span><span [ngModel]="prixProduit" formControlName="prix1" > {{idproduit}}</span></td>
-                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" ></td>
+                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" required></td>
                         <td><span data-prefix>DT</span><span > {{totaldetailProduit}}</span></td>
                         <td>
-                            <button  type="submit" class="btn btn-success" (click)="addDetailFacture()">Save</button>
+                            <input   type="button" class="btn btn-success" (click)="addDetailFacture()" value="Save">
                         </td>
                     </tr>
+                    </ng-form>
                 </tbody>
             </table>
             

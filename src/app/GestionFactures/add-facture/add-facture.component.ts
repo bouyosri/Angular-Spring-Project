@@ -29,7 +29,8 @@ export class AddFactureComponent implements OnInit {
   message: string = "";
   selectedObject: any;
   dateFacture: string;
-  detailFacture: DetailFacture;
+  
+  
   prixTotal: number = 0;
   clients: Client[];
   produits: Produit[];
@@ -43,16 +44,25 @@ export class AddFactureComponent implements OnInit {
   codeproduit : any;
   prixProduit:any;
   totaldetailProduit:any;
+  produit:Produit;
+  remiseProduit:any;
+  qte:any;
+
+
+
+  detailFacture: DetailFacture= {
+    idDetailFacture: 0,
+    qte: 0,
+    prixTotal: 0,
+    pourcentageRemise: 0,
+    montantRemise: 0,
+    facture: null,
+    produit: null
+  };
 
 
   form: FormGroup;
-
-
-  detailform = new FormGroup({
-    produit: new FormControl(''),
-    prixProduit: new FormControl(''),
-    qte: new FormControl(''),
-  });
+  detailform: FormGroup;
 
   constructor(private factureService: FactureService, private dfService: DetailfactureService, private router: Router) { }
 
@@ -73,17 +83,34 @@ export class AddFactureComponent implements OnInit {
     console.log(this.idclient);
   }
 
+
+  getremise(value): void {
+
+    
+    
+    let remise;
+    remise=(value.target as HTMLInputElement).value;
+    console.log(remise);
+    console.log(this.remiseProduit);
+    this.remiseProduit=remise;
+    console.log("remise = "+this.remiseProduit);
+    
+  }
+
   calculatePrix(value): void {
 
     
     
     let qte;
     qte=(value.target as HTMLInputElement).value;
+    this.qte=qte;
     console.log(qte);
     console.log(this.idproduit);
     this.prixProduit=this.idproduit;
     let totalProduit;
-    this.totaldetailProduit=qte*this.prixProduit;
+    let remise;
+    remise = (this.remiseProduit*this.prixProduit*qte)/100;
+    this.totaldetailProduit=(qte*this.prixProduit)-remise ;
     console.log("prix total = "+this.totaldetailProduit);
     
   }
@@ -95,13 +122,15 @@ export class AddFactureComponent implements OnInit {
     let currentName=(value.target as HTMLInputElement).value;
     let currentprix;
     let currentcode;
+    let localP:Produit;
     this.produits.forEach(function (value) {
       
       if(value.libelle==currentName)
       {
         currentprix=value.prixUnitaire;
-        console.log("eee"+currentprix);
         currentcode=value.code;
+        localP=value;
+
       }
       
       
@@ -110,6 +139,8 @@ export class AddFactureComponent implements OnInit {
     });
     this.idproduit=currentprix;
     this.codeproduit=currentcode;
+    this.produit=localP;
+    console.log("current Produit"+this.produit.libelle);
   }
 
   addFacture() {
@@ -267,15 +298,23 @@ export class AddFactureComponent implements OnInit {
   }
   // ------------------- DetailFacture STUFF -----------------------
   addDetailFacture(){
+    console.log("inside detail "+this.produit.libelle);
+    
+    this.detailFacture.produit=this.produit;
+    this.detailFacture.pourcentageRemise=this.remiseProduit;
+    this.detailFacture.qte=this.qte;
+    console.log(this.detailFacture);
     this.dfService.addDetailFacture(this.detailFacture,this.facture.idFacture).subscribe(
       res => {
-        console.log('Facture created!');
+        
+        
+        console.log('Detail Facture created!');
         this.detailFacture = res;
         /*this.dateFacture = this.facture.dateFacture + "";
         this.dateFacture = this.dateFacture.substring(0, 10)
         this.createDetailFacture();
-        this.getDetailFactures(this.facture.idFacture);*/
-        console.log(this.facture)
+        this.getDetailFactures(this.facture.idFacture);
+        console.log(this.facture)*/
       });
     err => {
       console.log(err);
