@@ -48,10 +48,14 @@ export class ListRayonComponent implements OnInit {
 
            },
           error => console.log(error));
-          this.Router.navigate(['/fournisseur']) 
+          this.selectData();
+ 
           
         ;
-       
+        setTimeout(()=>{
+          this.selectData();
+        },500
+        )
           
       }
       

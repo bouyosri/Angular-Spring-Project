@@ -65,18 +65,18 @@ export class RayonService {
      
       deleteRayon (rayon:rayon): Observable<rayon> {
 
-        return this.http.delete<rayon>('/api/SpringMVC/rayon/remove-rayon/'+rayon.idRayon);
+        return this.http.delete<rayon>(this.baseURL+'/rayon/remove-rayon/'+rayon.idRayon);
         
       }
-      getRayonbyid() : Observable<rayon[]>{
-        return this.http.get<rayon[]>("/api/SpringMVC/rayon/retrieve-rayon/");
+      getRayonbyid(idRayon: number) : Observable<rayon>{
+        return this.http.get<rayon>(this.baseURL+`/rayon/retrieve-rayon/${idRayon}`);
       }
     
-        /*updateRayon (idRayon: number): Observable<rayon> {
-          return this.http.put<rayon>("/api/SpringMVC/rayon/modifymodepaiementfacture/"+ idRayon+"/", this.httpOptions);
-          }*/
+        updateRayon (rayon:rayon): Observable<rayon> {
+          return this.http.put<rayon>(this.baseURL+"/rayon/modify-rayon",rayon, this.httpOptions);
+          }
           createRayon(rayon: rayon): Observable<rayon> {
-            return this.http.post<rayon>('/api/SpringMVC/rayon/add-rayon',rayon);
+            return this.http.post<rayon>(this.baseURL+'/rayon/add-rayon',rayon);
           }
 
           populateForm(four){

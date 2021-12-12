@@ -48,12 +48,16 @@ export class ListFournisseurComponent implements OnInit {
           res => {
             console.log(res);
            // this.listFournisseur = this.fs.getfournisseurs();
-           this.tolist();
+      
            },
           error => console.log(error));
          
           
         ;
+        setTimeout(()=>{
+          this.selectData();
+        },500
+        )
        
           
       }

@@ -8,7 +8,9 @@ import { ListFacturesPayerComponent } from './GestionFactures/list-factures-paye
 import { ListFacturesComponent } from './GestionFactures/list-factures/list-factures.component';
 import { UpdateFactureComponent } from './GestionFactures/update-facture/update-facture.component';
 import { ListClientComponent } from './list-client/list-client.component';
+import { AddRayonComponent } from './Rayon/add-rayon/add-rayon.component';
 import { ListRayonComponent } from './Rayon/list-rayon/list-rayon.component';
+import { UpdateRayonComponent } from './Rayon/update-rayon/update-rayon.component';
 import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
@@ -23,6 +25,8 @@ const routes: Routes = [
   {path:"fournisseur/update/:id",component:UpdateFournisseurComponent},
   {path:"fournisseur/add",component:AddFournisseurComponent},
   {path:"rayon",component:ListRayonComponent},
+  {path:"rayon/add",component:AddRayonComponent},
+  {path:"rayon/update/:id",component:UpdateRayonComponent},
 
 ];
 

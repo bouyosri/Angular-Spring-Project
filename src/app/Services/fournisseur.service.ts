@@ -73,7 +73,7 @@ export class FournisseurService {
       }
     
         updateFournisseur (fournisseur:fournisseur): Observable<fournisseur> {
-          return this.http.put<fournisseur>(this.baseURL+`/fournissseur/modify-fournissseur`, this.httpOptions);
+          return this.http.put<fournisseur>(this.baseURL+`/fournissseur/modify-fournissseur`,fournisseur, this.httpOptions);
           }
           createfournisseur(fournisseur: fournisseur): Observable<fournisseur> {
             return this.http.post<fournisseur>(this.baseURL+'/fournissseur/add-fournissseur',fournisseur);
