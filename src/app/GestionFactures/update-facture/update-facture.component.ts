@@ -143,7 +143,7 @@ export class UpdateFactureComponent implements OnInit {
     console.log("current Produit"+this.produit.libelle);
   }
 
-  addFacture() {
+  editFacture() {
     let currentName=this.idclient;
     let currentId;
     this.clients.forEach(function (value) {
@@ -159,7 +159,7 @@ export class UpdateFactureComponent implements OnInit {
 
     
 
-        this.factureService.addFacture(currentId).subscribe(
+        this.factureService.editFacture(this.facture,currentId).subscribe(
           res => {
             console.log('Facture created!');
             this.facture = res;

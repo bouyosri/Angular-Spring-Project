@@ -35,6 +35,9 @@ export class FactureService {
   addFacture(id: any): Observable<Facture> {
     return this.http.post<Facture>(this.baseURL + '/factures/add-Facture/'+ id, this.httpOptions)
   }
+  editFacture(facture: Facture,id: any): Observable<Facture> {
+    return this.http.post<Facture>(this.baseURL + '/factures/add-Facture/'+ id, facture, this.httpOptions)
+  }
   updateFacture(facture: Facture): Observable<Facture> {
     return this.http.put<Facture>(this.baseURL + '/factures/modify-facture', facture, this.httpOptions)
   }

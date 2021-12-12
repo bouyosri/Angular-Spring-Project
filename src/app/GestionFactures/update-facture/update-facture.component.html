@@ -19,12 +19,12 @@
                 accept="image/*"></span>
     </header>
 
-    <form [formGroup]="form">
+    <form >
         <article>
             <h1>Recipient</h1>
             <address contenteditable>
                 <p><select [ngModel]="idclient" (change)="changeIdClient($event)">
-                        <option *ngFor="let item of clients; " formControlName="client">
+                        <option *ngFor="let item of clients; " >
                             {{item.nom}}
                         </option>
                     </select> 
@@ -60,21 +60,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let dfacture of details; index as i;">
+                    <tr *ngFor="let dfacture of details; let i = index;">
                         <td ng-hide="myValue">
                             <a class="cut" (click)="deleteDetailFacture(dfacture.idDetailFacture)">-</a>
                             {{dfacture.idDetailFacture}}</td>
                         <td>
-                            <select (change)="changeIdprod($event)">
-                                <option *ngFor="let produit of produits;" formControlName="title" [value]="produit.libelle" 
+                            <select (click)="changeIdprod($event)">
+                                <option *ngFor="let produit of produits;"  [value]="produit.libelle" 
                                 [attr.selected]="dfacture.produit.libelle==produit.libelle ? true : null" required>
                                     {{produit.libelle}}
                                 </option>
                             </select>
                         </td>
-                        <td><input type="number" name="remiseProduit" [ngModel]="remiseProduit" value="0" min="0" placeholder="0" max="100" (change)="getremise($event)" required></td>
-                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit" formControlName="prix1" > {{dfacture.produit.prixUnitaire}}</span></td>
-                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" required></td>
+                        <td><input type="number" name="remiseProduit{{dfacture.idDetailFacture}}" [ngModel]="remiseProduit[dfacture.idDetailFacture]" value="{{dfacture.pourcentageRemise}}" min="0" placeholder="{{dfacture.pourcentageRemise}}" max="100" (change)="getremise($event)" required></td>
+                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit"  > {{dfacture.produit.prixUnitaire}}</span></td>
+                        <td><input type="number" name="qte{{dfacture.idDetailFacture}}" value="{{dfacture.qte}}" min="1" max="100" (change)="calculatePrix($event)" required></td>
                         <td><span data-prefix>DT</span><span > {{dfacture.prixTotal}}</span></td>
                         <td>
                             <input   type="button" class="btn btn-success" (click)="editDetailFacture(dfacture.idDetailFacture)" value="Save">
@@ -100,7 +100,7 @@
 
 
 
-            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="addFacture()">Add Facture</button>
+            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="editFacture()">Update Facture</button>
         </article>
     </form>
     <aside>
