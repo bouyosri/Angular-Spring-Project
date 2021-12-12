@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a routerLink="stocks" routerLinkActive="active" class="nav-link"
+        >Stock List</a
+      >
+    </li>
+    <li class="nav-item">
+      <a routerLink="create-stock" routerLinkActive="active" class="nav-link"
+        >Add Stock</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="create-reclamation"
+        routerLinkActive="active"
+        class="nav-link"
+        >Add Reclamation</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="reclamation-list"
+        routerLinkActive="active"
+        class="nav-link"
+        >List Reclamation</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer"></footer>
