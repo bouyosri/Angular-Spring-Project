@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.spring.entity.CategorieClient;
 import tn.esprit.spring.entity.Facture;
 
-@Repository
+
 
 public interface FactureRepository extends CrudRepository<Facture, Long>{
 	@Query("SELECT f FROM Facture f WHERE f.dateFacture BETWEEN ?1 AND ?2")

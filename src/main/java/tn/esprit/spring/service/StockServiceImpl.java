@@ -43,7 +43,7 @@ public class StockServiceImpl implements StockService{
 	public void cronMethod() {
 		List<Stock> stocks = this.retrieveAllStocks();
 		
-		for (Object stock2 : stocks) {
+		for (Object stock2 : stocks) { 
 			Stock stock = (Stock) stock2;
 			float moyenne=(stock.getQteMin()+stock.getQte())/2;
 			if (moyenne>1)

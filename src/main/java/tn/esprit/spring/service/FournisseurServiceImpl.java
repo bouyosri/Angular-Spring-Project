@@ -5,18 +5,22 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 
 import tn.esprit.spring.entity.Client;
 import tn.esprit.spring.entity.Facture;
 import tn.esprit.spring.entity.Fournisseur;
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.repository.FournisseurRepository;
+import tn.esprit.spring.repository.ProduitRepository;
 
 @Service
 public class FournisseurServiceImpl implements FournisseurService {
 	@Autowired
 	FournisseurRepository FR;
+	
 
 	@Override
 	public List<Fournisseur> retrieveAllFournisseurs() {
@@ -48,11 +52,24 @@ public class FournisseurServiceImpl implements FournisseurService {
 		return this.FR.findById(id).orElse(null);
 	}
 
-  /*@Override
-	public List<Fournisseur> getFournisseursByproduit(Long idProduit) {
-		// TODO Auto-generated method stub
-		return FR.getFournisseursByproduit(idProduit);
+	@Scheduled(cron = "*/10 * * * * *" )
+	public long getFournisseurssize() {
+		 
+		System.out.println("scheduled "+this.FR.findAll().size());
+		return this.FR.findAll().size();
+		
+		
+
+		
 	}
-	*/
+
+	@Override
+	public Fournisseur getFournisseursByproduit(Long idProduit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 
 }

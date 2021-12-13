@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,7 @@ public class Fournisseur implements Serializable {
 
 	@Column(name="libelle")
 	private String libelle;
-	
+	@NotNull
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Produit> Produit;

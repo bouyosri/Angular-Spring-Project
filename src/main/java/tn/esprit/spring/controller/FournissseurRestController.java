@@ -71,13 +71,14 @@ public class FournissseurRestController {
 	return fournissseurService.updateFournisseur(f);
 	
 	}
-	/*@CrossOrigin
+
 	@ApiOperation(value = "Récupérer la liste des fournisseurs")
-	@GetMapping("/retrieve-all-fournisseurs-by-client/{produit-id}")
+	@GetMapping("/retrieve-all-fournisseurs-size/")
 	@ResponseBody
-	public List<Fournisseur>getFournisseursByproduit(@PathVariable("produit-id") Long produitId) {
-	return fournissseurService.getFournisseursByproduit(produitId);
-	}*/
+	public long getFournisseurssize() {
+		System.out.println(fournissseurService.getFournisseurssize());
+	return fournissseurService.getFournisseurssize();
+	}
 	 
 	
 }
