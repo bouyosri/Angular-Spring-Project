@@ -306,6 +306,7 @@ export class UpdateFactureComponent implements OnInit {
     console.log("inside detail "+this.produit.libelle);
     
     this.detailFacture.produit=this.produit;
+    this.detailFacture.idDetailFacture=0;
     this.detailFacture.pourcentageRemise=this.remiseProduit;
     this.detailFacture.qte=this.qte;
     console.log(this.detailFacture);
