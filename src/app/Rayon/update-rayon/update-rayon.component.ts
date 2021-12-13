@@ -41,7 +41,7 @@ export class UpdateRayonComponent implements OnInit {
        }
      )
   }  goToStockList() {
-    this.router.navigate(['/fournisseur']);
+    this.router.navigate(['/rayon']);
   }
 
 }

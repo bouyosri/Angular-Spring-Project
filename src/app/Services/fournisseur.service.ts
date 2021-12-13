@@ -82,6 +82,11 @@ export class FournisseurService {
           populateForm(four){
             this.form.setValue(fournisseur);
           }
+          exportPDF(): Observable<any> {
+            return this.http.get<fournisseur>(this.baseURL + `/pdfDownload`, {
+              responseType: 'arraybuffer' as 'json',
+            });
+          }
           
     
      

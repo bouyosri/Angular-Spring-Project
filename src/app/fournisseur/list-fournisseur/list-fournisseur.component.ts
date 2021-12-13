@@ -28,6 +28,8 @@ export class ListFournisseurComponent implements OnInit {
   filters={
     keyword:''
   }
+  fournisseurList: any;
+  libelleFournisseur:any;
   constructor(private fs:FournisseurService,private Router: Router,private uss: ActivatedRoute) { }
 
  /* listData: MatTableDataSource<any>;*/
@@ -110,7 +112,27 @@ export class ListFournisseurComponent implements OnInit {
         this.Router.navigate(['/fournisseur'])
 
       }
-    
+      Search() {
+        if (this.libelleFournisseur != '') {
+          this.fournisseurList = this.fournisseurList.filter((res: any) => {
+            return res.libelleStock
+              .toLocaleLowerCase()
+              .match(this.libelleFournisseur.toLocaleLowerCase());
+          });
+        } else if (this.libelleFournisseur == '') {
+          this.ngOnInit();
+        }
+      }
+
+      exportToPDF() {
+        this.fs.exportPDF().subscribe((responseMessage: any) => {
+          let file = new Blob([responseMessage], {
+            type: 'application/vnd.ms-excel',
+          });
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL);
+        });
+      }
 
 
      }

@@ -4,9 +4,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <button class="btn" (click)=toadd()>add fournisseur</button>
-
+                    <a class="btn btn-outline-success" (click)="exportToPDF()"
+                    ><i class="fa fa-plus-square">Download PDF</i></a
+                  >
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">List Fournisseur</h4>
+                        <input
+  type="text"
+  aria-labelledby="temperature low"
+  #myInput
+  [(ngModel)]="libelleFournisseur"
+  (input)="Search()"
+/>
                      </div>
                     <div class="card-body">
                         <div class="table-responsive">
