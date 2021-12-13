@@ -1,0 +1,166 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+
+   
+   
+    <!-- Page content -->
+    <div class="container-fluid mt-7 ml-9">
+        <div class="col-lg-6 col-5 " >
+            <div id="overlay" class="overlay">
+              <div id="popup" class="popup">
+                
+              <span id="btnClose" class="btnClose">&times;</span>
+            
+              <div class="container">
+                <form  class="m-auto"  style="max-width:600px">
+        
+                  <h3 class="my-4">Update informations</h3>
+                  <hr class="my-4" />
+                  <div class="form-group mb-3 row"><label for="first-name"  class="col-md-5 col-form-label">First name</label>
+                    
+                    <div class="col-md-7"><input type="text" [(ngModel)]="client.nom" class="form-control form-control-lg" id="first-name" name="first-name" required></div>
+                  </div>
+                  <div class="form-group mb-3 row"><label for="last-name" class="col-md-5 col-form-label">Last name</label>
+                    <div class="col-md-7"><input type="text" [(ngModel)]="client.prenom" class="form-control form-control-lg" id="last-name" name="last-name" required></div>
+                  </div>
+                  <div class="form-group mb-3 row"><label for="birth-date" class="col-md-5 col-form-label">Birth date</label>
+                    <div class="col-md-7"><input type="date" [(ngModel)]="client.dateNaissance" class="form-control form-control-lg" id="birth-date4" name="birth-date" required></div>
+                  </div>
+                  <div class="form-group mb-3 row"><label for="email" class="col-md-5 col-form-label">Email</label>
+                    <div class="col-md-7"><input type="email" [(ngModel)]="client.email" class="form-control form-control-lg" id="email" name="email" required></div>
+                  </div>
+                  <div class="form-group mb-3 row"><label for="client-category" class="col-md-5 col-form-label">Client category</label>
+                    <div class="col-md-7"><input type="text" [(ngModel)]="client.categorieClient" class="form-control form-control-lg" id="client-category" name="client-category" required></div>
+                  </div>
+                  <div class="form-group mb-3 row"><label for="profession" class="col-md-5 col-form-label">Profession</label>
+                    <div class="col-md-7"><input type="text" [(ngModel)]="client.profession" class="form-control form-control-lg" id="profession" name="profession" required></div>
+                  </div>
+                  <hr class="my-4" />
+                  <div class="form-group mb-3 row"><label for="send-a-message10" class="col-md-5 col-form-label"></label>
+                    <div class="col-md-7"><button class="btn btn-primary btn-lg" type="submit" (click)="updateClient()">Save</button></div>
+                  </div>
+                </form>
+              </div>
+              </div>
+              
+                    
+            
+            </div>
+
+
+            <div id="overlay1" class="overlay1">
+                <div id="popup1" class="popup1">
+                  
+                <span id="btnClose1" class="btnClose">&times;</span>
+              
+                <div class="container">
+                  <form  class="m-auto"  style="max-width:600px">
+          
+                    <h3 class="my-4">Send email</h3>
+                    <hr class="my-4" />
+                    <div class="form-group mb-3 row"><label for="email" class="col-md-5 col-form-label">Email</label>
+                        <div class="col-md-7"><input type="email" [(ngModel)]="client.email" disabled class="form-control form-control-lg" id="email" name="email" required></div>
+                      </div>
+                    <div class="form-group mb-3 row"><label for="subject"  class="col-md-5 col-form-label">Subject</label>
+                      
+                      <div class="col-md-7"><input type="text" [(ngModel)]="subject"  class="form-control form-control-lg" id="first-name" name="subject" required></div>
+                    </div>
+                    
+                    <div class="form-group mb-3 row"><label for="birth-date" class="col-md-5 col-form-label">Content</label>
+                      <div class="col-md-7"><textarea [(ngModel)]="content"  class="form-control form-control-lg" id="birth-date4" name="birth-date" required></textarea></div>
+                    </div>
+                    
+                    
+                    
+                    <hr class="my-4" />
+                    <div class="form-group mb-3 row"><label for="send-a-message10" class="col-md-5 col-form-label"></label>
+                      <div class="col-md-7"><button class="btn btn-primary btn-lg" type="submit" (click)="sendMail()">Save</button></div>
+                    </div>
+                  </form>
+                </div>
+                </div>
+                
+                      
+              
+              </div>
+
+
+
+              
+              
+               
+                  
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="row" style="width: 200%;">
+        <div class="col-xl-9 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-4.jpg" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <button  id="btnPopup" class="btn btn-sm btn-info mr-4">update profile</button>
+                <button id="btnPopup1" class="btn btn-sm btn-default float-right">Message</button>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">{{nbFacture}}</span>
+                      <span class="description">Factures</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{totalFacture}} $</span>
+                      <span class="description">total spent</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{PCA}} %</span>
+                      <span class="description">Percentage of Total Factures</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                 {{client.nom}} {{client.prenom}}
+                </h3>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i>{{client.dateNaissance}}<br>{{client.categorieClient}}<br>
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>{{client.profession}}
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>{{client.email}}
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  
+ 

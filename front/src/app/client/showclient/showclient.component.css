@@ -1,0 +1,44 @@
+.overlay {
+    position: fixed;
+    left: 25%;
+    top:3%;
+    width: 60%;
+    height: 100%;
+    z-index:1;
+    display:none;
+    overflow:scroll;
+
+    }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .popup{
+        margin: 10% auto;
+        width : 70%;
+        background-color: rgb(243, 243, 243);
+        padding: 1em;
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        }
+
+
+        .btnClose {
+            font-size:16pt;
+            cursor: pointer;
+            color: rgb(26, 26, 26);
+            display: inline;
+            float:right;
+            color:#F5365C;
+            
+            }
+            h2{
+                display:inline;
+            }
+
+
+            .header{
+                display: flex;
+                width:100%;
+            }

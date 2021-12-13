@@ -1,0 +1,36 @@
+<div class="table-responsive py-4">
+  <table class="table table-flush" id="datatable-buttons">
+    <thead class="thead-light">
+      <tr>
+        <th>Client</th>
+        <th>Invoice Date</th>
+        <th>Total Amount</th>
+        <th>Paid or Not</th>
+        <th>Consult</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Client</th>
+        <th>Invoice Date</th>
+        <th>Total Amount</th>
+        <th>Paid or Not</th>
+        <th>Consult</th>
+        <th>Delete</th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr *ngFor="let f of listFactures">
+          <td *ngIf="f.client">{{f.client.nom}} {{f.client.prenom}}</td>
+          <td *ngIf="!f.client">No Client Specified yet</td>
+        <td>{{f.dateFacture}}</td>
+        <td>{{f.montantTotal}}</td>
+        <td *ngIf="f.active"><p style="color: red;">Not Paid</p> </td>
+        <td *ngIf="!f.active"><p style="color: green;">Paid</p> </td>
+        <td><button class="btn btn-sm btn-primary" (click)="updateFacture(f.idFacture)">View</button></td>
+        <td><button class="btn btn-sm btn-danger" (click)="deleteFacture(f.idFacture)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
