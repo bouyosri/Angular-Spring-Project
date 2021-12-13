@@ -10,7 +10,7 @@
 <body style="    height: fit-content;">
     <header>
         <h1>Invoice</h1>
-        <address contenteditable>
+        <address  >
             <p>Jonathan Neal</p>
             <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
             <p>(800) 555-1234</p>
@@ -22,8 +22,8 @@
     <form >
         <article>
             <h1>Recipient</h1>
-            <address contenteditable>
-                <p><select [ngModel]="idclient" (change)="changeIdClient($event)">
+            <address  >
+                <p><select [ngModelOptions]="{standalone: true}"  [ngModel]="idclient" (change)="changeIdClient($event)">
                         <option *ngFor="let item of clients; " >
                             {{item.nom}}
                         </option>
@@ -36,16 +36,16 @@
 
             <table class="meta">
                 <tr>
-                    <th><span contenteditable>Invoice #</span></th>
-                    <td><span contenteditable>101138</span></td>
+                    <th><span  >Invoice #</span></th>
+                    <td><span  >101138</span></td>
                 </tr>
                 <tr>
-                    <th><span contenteditable>Date</span></th>
-                    <td><span contenteditable>January 1, 2012</span></td>
+                    <th><span  >Date</span></th>
+                    <td><span  >January 1, 2012</span></td>
                 </tr>
                 <tr>
-                    <th><span contenteditable>Amount Due</span></th>
-                    <td><span id="prefix" contenteditable>DT</span><span> 600.00</span></td>
+                    <th><span  >Amount Due</span></th>
+                    <td><span id="prefix"  >DT</span><span> {{facture.montantFacture}}</span></td>
                 </tr>
             </table>
             <table class="inventory">
@@ -72,12 +72,33 @@
                                 </option>
                             </select>
                         </td>
-                        <td><input type="number" name="remiseProduit{{dfacture.idDetailFacture}}" [ngModel]="remiseProduit[dfacture.idDetailFacture]" value="{{dfacture.pourcentageRemise}}" min="0" placeholder="{{dfacture.pourcentageRemise}}" max="100" (change)="getremise($event)" required></td>
-                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit"  > {{dfacture.produit.prixUnitaire}}</span></td>
+                        <td><input type="number" name="remiseProduit{{dfacture.idDetailFacture}}" [ngModelOptions]="{standalone: true}"  [ngModel]="remiseProduit[dfacture.idDetailFacture]" value="{{dfacture.pourcentageRemise}}" min="0" placeholder="{{dfacture.pourcentageRemise}}" max="100" (change)="getremise($event)" required></td>
+                        <td><span data-prefix >DT</span><span [ngModelOptions]="{standalone: true}"  [ngModel]="prixProduit"  > {{dfacture.produit.prixUnitaire}}</span></td>
                         <td><input type="number" name="qte{{dfacture.idDetailFacture}}" value="{{dfacture.qte}}" min="1" max="100" (change)="calculatePrix($event)" required></td>
                         <td><span data-prefix>DT</span><span > {{dfacture.prixTotal}}</span></td>
                         <td>
                             <input   type="button" class="btn btn-success" (click)="editDetailFacture(dfacture.idDetailFacture)" value="Save">
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <select  (change)="changeIdprod($event)">
+                                <option *ngFor="let produit of produits;" formControlName="title" required>
+                                    {{produit.libelle}}
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="remiseProduit" [ngModel]="remiseProduit" value="0" min="0" placeholder="0" max="100" (change)="getremise($event)" required></td>
+                        <td><span data-prefix >DT</span><span [ngModel]="prixProduit" formControlName="prix1" > {{idproduit}}</span></td>
+                        <td><input type="number" name="qte" formControlName="qte" value="0" min="1" max="100" (change)="calculatePrix($event)" required></td>
+                        <td><span data-prefix>DT</span><span > {{totaldetailProduit}}</span></td>
+                        <td>
+                            <input   type="button" class="btn btn-success" (click)="addDetailFacture()" value="Save">
                         </td>
                     </tr>
                 </tbody>
@@ -85,18 +106,21 @@
             
             <table class="balance">
                 <tr>
-                    <th><span contenteditable>Total</span></th>
-                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                    <th><span  >Total</span></th>
+                    <td><span data-prefix>DT</span><span> {{facture.montantFacture+facture.montantRemise}}</span></td>
                 </tr>
                 <tr>
-                    <th><span contenteditable>Amount Paid</span></th>
-                    <td><span data-prefix>DT </span><span contenteditable> 0.00</span></td>
+                    <th><span  >Discount</span></th>
+                    <td><span data-prefix>DT</span><span> {{facture.montantRemise}}</span></td>
                 </tr>
                 <tr>
-                    <th><span contenteditable>Balance Due</span></th>
-                    <td><span data-prefix>DT</span><span> 600.00</span></td>
+                    <th><span  >Total after discount</span></th>
+                    <td><span data-prefix>DT </span><span  > {{facture.montantFacture}}</span></td>
                 </tr>
+                
             </table>
+
+            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="payFacture(59)">Pay Facture</button>
 
 
 
@@ -104,7 +128,7 @@
         </article>
     </form>
     <aside>
-        <h1><span contenteditable>Additional Notes</span></h1>
+        <h1><span  >Additional Notes</span></h1>
     </aside>
 </body>
 

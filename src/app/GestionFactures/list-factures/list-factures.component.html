@@ -10,16 +10,6 @@
           <th>Delete</th>
         </tr>
       </thead>
-      <tfoot>
-        <tr>
-          <th>Client</th>
-          <th>Invoice Date</th>
-          <th>Total Amount</th>
-          <th>Paid or Not</th>
-          <th>Consult</th>
-          <th>Delete</th>
-        </tr>
-      </tfoot>
       <tbody>
         <tr *ngFor="let f of listFactures">
             <td *ngIf="f.client">{{f.client.nom}} {{f.client.prenom}}</td>

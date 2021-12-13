@@ -168,10 +168,12 @@ export class UpdateFactureComponent implements OnInit {
             this.createDetailFacture();
             this.getDetailFactures(this.facture.idFacture);*/
             console.log(this.facture)
+            
           });
         err => {
           console.log(err);
         }
+        this.getFacture(this.parameter);
     
   }
   
@@ -258,6 +260,7 @@ export class UpdateFactureComponent implements OnInit {
     err => {
       console.log(err);
     }
+    this.getFacture(this.parameter);
   }
   saveFacture() {
     if (this.facture.client) {
@@ -279,7 +282,7 @@ export class UpdateFactureComponent implements OnInit {
 
 
   }
-  payFacture() {
+  /*payFacture() {
     if (this.facture.client) {
       this.message = "";
       this.facture.active = false;
@@ -297,7 +300,7 @@ export class UpdateFactureComponent implements OnInit {
     } else {
       this.message = "Select Client"
     }
-  }
+  }*/
   // ------------------- DetailFacture STUFF -----------------------
   addDetailFacture(){
     console.log("inside detail "+this.produit.libelle);
@@ -321,6 +324,39 @@ export class UpdateFactureComponent implements OnInit {
     err => {
       console.log(err);
     }
+    setTimeout( ()=>{
+      this.getFacture(this.parameter);
+      },  100)
+  }
+  payFacture(id:any){
+    
+    this.factureService.payFacture(this.parameter);
+    this.facture.active=false;
+    
+
+    console.log(this.facture);
+    this.factureService.editFacture(this.facture,this.facture.client.idClient).subscribe(
+      res => {
+        console.log(' Facture paid!');
+        this.facture = res;
+        /*this.dateFacture = this.facture.dateFacture + "";
+        this.dateFacture = this.dateFacture.substring(0, 10)
+        this.createDetailFacture();
+        this.getDetailFactures(this.facture.idFacture);
+        console.log(this.facture)*/
+      }
+      
+      );
+      err => {
+        console.log(err);
+      };
+
+    
+    setTimeout( ()=>{
+      this.getFacture(this.parameter);
+      },  100)
+
+
   }
 
 
@@ -335,8 +371,6 @@ export class UpdateFactureComponent implements OnInit {
     console.log(this.detailFacture);
     this.dfService.addDetailFacture(this.detailFacture,this.facture.idFacture).subscribe(
       res => {
-        
-        
         console.log('Detail Facture created!');
         this.detailFacture = res;
         /*this.dateFacture = this.facture.dateFacture + "";
@@ -348,6 +382,10 @@ export class UpdateFactureComponent implements OnInit {
     err => {
       console.log(err);
     }
+    setTimeout( ()=>{
+      this.getFacture(this.parameter);
+      },  100)
+    
   }
 
 
@@ -357,6 +395,7 @@ export class UpdateFactureComponent implements OnInit {
       res => {
         console.log('detail deleted');
         this.getDetailFactures(this.facture.idFacture);
+        this.getFacture(this.parameter);
       });
     err => {
       console.log(err);

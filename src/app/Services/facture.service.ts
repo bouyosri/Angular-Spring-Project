@@ -47,6 +47,10 @@ export class FactureService {
     return this.http.delete(this.baseURL + '/factures/remove-Facture/' + id, this.httpOptions)
   }
 
+  payFacture(id: number) {
+    return this.http.post(this.baseURL + '/factures/pay-Facture/' + id, this.httpOptions)
+  }
+
   getClients() : Observable<Client[]>{
     return this.http.get<Client[]>(this.baseURL + '/clients/retrieve-all-clients', this.httpOptions)
   }
