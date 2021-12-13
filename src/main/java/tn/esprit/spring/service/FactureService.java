@@ -12,7 +12,9 @@ import tn.esprit.spring.entity.Facture;
 
 public interface FactureService 
 {
-	List<Facture> retrieveAllFactures();
+	public List<Facture> retrieveAllFactures();
+	public List<Facture> retrieveFacturesPaid();
+	public List<Facture> retrieveFacturesUnpaid();
 
 	void cancelFacture(Long id);
 

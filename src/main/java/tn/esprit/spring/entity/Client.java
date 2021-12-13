@@ -19,16 +19,26 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+
+
+
+
 @Table( name = "Client")
 public class Client implements Serializable {
 @Id
 @GeneratedValue (strategy = GenerationType.IDENTITY)
+//primary generate auto value
 @Column(name="idClient")
 private Long idClient; 
 
@@ -59,6 +69,10 @@ private CategorieClient categorieClient;
 @JsonIgnore
 @OneToMany(mappedBy = "client",cascade = CascadeType.ALL)
 private Set<Facture> Factures ;
+
+@JsonIgnore
+@OneToMany(cascade = CascadeType.ALL)
+private Set<Reclamation> Reclamation;
 
 
 

@@ -2,6 +2,7 @@ package tn.esprit.spring.service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -138,6 +139,36 @@ public class FactureServiceImpl implements FactureService{
 		// TODO Auto-generated method stub
 		Facturerepo.deleteById(id);
 		
+	}
+
+	@Override
+	public List<Facture> retrieveFacturesPaid() {
+		// TODO Auto-generated method stub
+		List<Facture> List = new ArrayList();
+		List<Facture> List2 = new ArrayList();
+		List=(java.util.List<Facture>) Facturerepo.findAll();
+		for (Facture facture : List) {
+			if (facture.getActive()==false){
+				
+				List2.add(facture);
+			}
+		}
+		return List2;
+	}
+
+	@Override
+	public List<Facture> retrieveFacturesUnpaid() {
+		// TODO Auto-generated method stub
+				List<Facture> List = new ArrayList();
+				List<Facture> List2 = new ArrayList();
+				List=(java.util.List<Facture>) Facturerepo.findAll();
+				for (Facture facture : List) {
+					if (facture.getActive()==true){
+						
+						List2.add(facture);
+					}
+				}
+				return List2;
 	}
 
 }

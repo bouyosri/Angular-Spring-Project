@@ -38,6 +38,21 @@ public class FactureRestController {
 		return Factures;
 	}
 	
+	@ApiOperation(value = "Récupérer la liste des Factures payés")
+	@GetMapping("/retrieve-all-Factures-paid")
+	@ResponseBody
+	public List<Facture> getAllFacturesPaid() {
+		List<Facture> Factures = FactureService.retrieveFacturesPaid();
+		return Factures;
+	}
+	@ApiOperation(value = "Récupérer la liste des Factures non payés")
+	@GetMapping("/retrieve-all-Factures-unpaid")
+	@ResponseBody
+	public List<Facture> getAllFacturesUnpPaid() {
+		List<Facture> Factures = FactureService.retrieveFacturesUnpaid();
+		return Factures;
+	}
+	
 	@ApiOperation(value = "Récupérer un Facture")
 	@GetMapping("/retrieve-Facture/{Facture-id}")
 	@ResponseBody

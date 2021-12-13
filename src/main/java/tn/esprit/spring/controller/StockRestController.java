@@ -14,51 +14,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import tn.esprit.spring.entity.Stock;
 import tn.esprit.spring.entity.Stock;
 import tn.esprit.spring.service.StockServiceImpl;
-import tn.esprit.spring.service.StockServiceImpl;
-
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@Api(tags = "Stocks management")
-@RequestMapping("/Stocks")
+@RequestMapping("/stocks")
+@CrossOrigin(origins="http://localhost:4200")
 public class StockRestController {
-	@Autowired
+@Autowired
 	
-	StockServiceImpl StockService;
+	StockServiceImpl stockService;
 	
-	@ApiOperation(value = "Récupérer la liste des Stocks")
-	@GetMapping("/retrieve-all-Stocks")
-	@ResponseBody
+	
+	@GetMapping("/retrieve-all-stocks")
+
 	public List<Stock> getAllStocks() {
-		List<Stock> Stocks = StockService.retrieveAllStocks();
-		return Stocks;
+		List<Stock> stocks  = stockService.retrieveAllStocks();
+		return stocks;
 	}
 	
-	@ApiOperation(value = "Récupérer un Stock")
-	@GetMapping("/retrieve-Stock/{Stock-id}")
-	@ResponseBody
-		public Stock retrieveStock(@PathVariable("Stock-id") Long StockId) {
-		return StockService.retrieveStock(StockId);
-	}
+	@GetMapping("/retrieve-stock/{stock-id}")
 	
-	@ApiOperation(value = "Ajouter un Stock")
-	@PostMapping("/add-Stock")
-	@ResponseBody
-	public Stock addStock(@RequestBody Stock c)
+		public Stock retrieveStock(@PathVariable("stock-id") Long stockId) {
+		return stockService.retrieveStock(stockId);
+	}
+
+	@PostMapping(value="/add-stock")
+	
+	public Stock addStock(@RequestBody Stock s)
 	{
-		Stock Stock = StockService.addStock(c);
-		return Stock;
+		Stock stock = stockService.addStock(s);
+		return stock;
 	}
-	
-	@ApiOperation(value = "Modifier un Stock")
-	@PutMapping("/modify-Stock")
-	@ResponseBody
-	public Stock modifyStock(@RequestBody Stock Stock) {
-	return StockService.updateStock(Stock);
+
+	@PutMapping("/modify-stock/{stock-id}")
+	public Stock modifyStock(@RequestBody Stock stock) {
+	return stockService.updateStock(stock);
+	}
+
+	@DeleteMapping("/remove-stock/{stock-id}")
+	public void removeStock(@PathVariable("stock-id") Long stockId) {
+		stockService.deleteStock(stockId);
 	}
 	
 
