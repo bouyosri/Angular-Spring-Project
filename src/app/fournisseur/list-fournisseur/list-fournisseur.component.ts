@@ -24,6 +24,7 @@ export class ListFournisseurComponent implements OnInit {
   listFournisseur: fournisseur;
   searchKey:string;
   idFournisseur:any;
+  sizefournisseur:any;
   
   fournisseur:fournisseur[]=[];
   filters={
@@ -36,6 +37,17 @@ export class ListFournisseurComponent implements OnInit {
  /* listData: MatTableDataSource<any>;*/
   ngOnInit(): void {
     this.selectData();
+    let i: number = 2;
+
+while (i < 4) {
+  setTimeout(()=>{
+    this.sizefournisseurcron();
+    console.log(this.sizefournisseur)
+  },500)
+    i++;
+}
+    
+    
      
   }
   selectData() {
@@ -155,7 +167,28 @@ export class ListFournisseurComponent implements OnInit {
         
       ;}
 
+      sizefournisseurcron(){
+        
+        this.sizefournisseur=this.fs.getsize().subscribe(res => {
+          
+          this.sizefournisseur = res;
+          
+          
+          
+          
+
+    
+         },
+        error => console.log(error));
+       
+        
+      ;}
+;
+
       }
+
+
+      
 
 
      

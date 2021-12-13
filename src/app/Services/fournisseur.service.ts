@@ -90,6 +90,10 @@ export class FournisseurService {
           getFournisseurbyidlist(idFournisseur: number): Observable<fournisseur[]> {
             return this.http.get<fournisseur[]>(this.baseURL + `/fournissseur/retrieve-fournissseur/${idFournisseur}`);
           }
+
+          getsize():any{
+            return this.http.get<any>(this.baseURL+"/fournissseur/retrieve-all-fournisseurs-size/");
+          }
           
     
      
