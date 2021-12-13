@@ -21,6 +21,12 @@ import { CreateStockComponent } from './GestionStock/create-stock/create-stock.c
 import { StockDetailsComponent } from './GestionStock/stock-details/stock-details.component';
 import { StockListComponent } from './GestionStock/stock-list/stock-list.component';
 import { UpdateStockComponent } from './GestionStock/update-stock/update-stock.component';
+import { AddFournisseurComponent } from './GestionFournisseur/add-fournisseur/add-fournisseur.component';
+import { ListFournisseurComponent } from './GestionFournisseur/list-fournisseur/list-fournisseur.component';
+import { UpdateFournisseurComponent } from './GestionFournisseur/update-fournisseur/update-fournisseur.component';
+import { UpdateRayonComponent } from './GestionRayon/update-rayon/update-rayon.component';
+import { AddRayonComponent } from './GestionRayon/add-rayon/add-rayon.component';
+import { ListRayonComponent } from './GestionRayon/list-rayon/list-rayon.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,13 @@ import { UpdateStockComponent } from './GestionStock/update-stock/update-stock.c
     CreateStockComponent,
     StockDetailsComponent,
     StockListComponent,
-    UpdateStockComponent
+    UpdateStockComponent,
+    AddFournisseurComponent,
+    ListFournisseurComponent,
+    UpdateFournisseurComponent,
+    UpdateRayonComponent,
+    AddRayonComponent,
+    ListRayonComponent
     ],
   imports: [
     BrowserModule,

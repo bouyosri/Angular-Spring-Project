@@ -19,7 +19,7 @@ export class ListFacturesComponent implements OnInit {
   }
 
   retrieveNotPaidFacture() {
-    this.factureService.getAllFactures().subscribe(
+    this.factureService.getUnPaidFactures().subscribe(
       res => {
         console.log('Factures :');
         this.listFactures = res;

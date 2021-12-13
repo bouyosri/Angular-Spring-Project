@@ -24,7 +24,7 @@
             <h1>Recipient</h1>
             <address  >
                 <p><select [ngModelOptions]="{standalone: true}"  [ngModel]="idclient" (change)="changeIdClient($event)">
-                        <option *ngFor="let item of clients; " >
+                        <option *ngFor="let item of clients; "  [attr.selected]="item.idClient==facture.client.idClient ? true : null" >
                             {{item.nom}}
                         </option>
                     </select> 
@@ -119,12 +119,16 @@
                 </tr>
                 
             </table>
+            <div style="margin-top: 23%;
+            margin-left: 55%;">
+                <button type="submit" style="padding: 6%;" class="btn btn-primary pull-right" (click)="payFacture(59)">Pay Facture</button>
 
-            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="payFacture(59)">Pay Facture</button>
 
 
+                <button type="submit" style="padding: 6%;" class="btn btn-primary pull-right" (click)="editFacture()">Update Facture</button>
+            </div>
 
-            <button type="submit" style="margin-left: 85%;margin-top: 6%;" class="btn btn-primary pull-right" (click)="editFacture()">Update Facture</button>
+            
         </article>
     </form>
     <aside>

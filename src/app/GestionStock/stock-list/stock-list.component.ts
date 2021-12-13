@@ -32,7 +32,9 @@ export class StockListComponent implements OnInit {
   deleteStock(id: number) {
     this.stockService.deleteStock(id).subscribe((data) => {
       console.log(data);
-      this.getAllStock();
+      setTimeout( ()=>{
+        this.getAllStock();
+        },  100)
     });
   }
   Search() {
@@ -60,6 +62,10 @@ export class StockListComponent implements OnInit {
     this.stockService
       .pushFileToStorage(event.target.files[0])
       .subscribe((event) => {});
+      setTimeout( ()=>{
+        this.getAllStock();
+        },  100)
+      
   }
   exportToPDF() {
     this.stockService.exportPDF().subscribe((responseMessage: any) => {

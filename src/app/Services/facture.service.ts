@@ -22,11 +22,11 @@ export class FactureService {
   getAllFactures(): Observable<Facture[]> {
     return this.http.get<Facture[]>(this.baseURL + '/factures/retrieve-all-Factures', this.httpOptions)
   }
-  getActiveFactures(): Observable<Facture[]> {
-    return this.http.get<Facture[]>(this.baseURL + '/factures/retrieve-all-Factures', this.httpOptions)
+  getPaidFactures(): Observable<Facture[]> {
+    return this.http.get<Facture[]>(this.baseURL + '/factures/retrieve-all-Factures-paid', this.httpOptions)
   }
-  getNonActiveFactures(): Observable<Facture[]> {
-    return this.http.get<Facture[]>(this.baseURL + '/factures/retrieve-all-Factures', this.httpOptions)
+  getUnPaidFactures(): Observable<Facture[]> {
+    return this.http.get<Facture[]>(this.baseURL + '/factures/retrieve-all-Factures-unpaid', this.httpOptions)
   }
   getFactureById(id: number): Observable<Facture> {
     return this.http.get<Facture>(this.baseURL + '/factures/retrieve-Facture/' + id, this.httpOptions)

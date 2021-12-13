@@ -18,7 +18,7 @@ export class ListFacturesPayerComponent implements OnInit {
   this.retrievePaidFacture();
   }
   retrievePaidFacture(){
-    this.factureService.getNonActiveFactures().subscribe(
+    this.factureService.getPaidFactures().subscribe(
       res => {
         console.log('Factures :');
         this.listFactures= res ;

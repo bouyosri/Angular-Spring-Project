@@ -1,0 +1,16 @@
+<h3>edit rayon</h3>
+<div  style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+     <div class="form-group">
+      <label for="name">code</label>
+      <input type="text" class="form-control" id="code" required [(ngModel)]="rayon.code" name="code">
+    </div>
+
+    <div class="form-group">
+      <label for="name">libelle</label>
+      <input type="text" class="form-control" id="libelle" required [(ngModel)]="rayon.libelle" name="libelle">
+    </div>
+     
+    <button class="btn btn-success">Submit</button>
+  </form>
+</div>

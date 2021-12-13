@@ -4,6 +4,12 @@ import { AddFactureComponent } from './GestionFactures/add-facture/add-facture.c
 import { ListFacturesPayerComponent } from './GestionFactures/list-factures-payer/list-factures-payer.component';
 import { ListFacturesComponent } from './GestionFactures/list-factures/list-factures.component';
 import { UpdateFactureComponent } from './GestionFactures/update-facture/update-facture.component';
+import { AddFournisseurComponent } from './GestionFournisseur/add-fournisseur/add-fournisseur.component';
+import { ListFournisseurComponent } from './GestionFournisseur/list-fournisseur/list-fournisseur.component';
+import { UpdateFournisseurComponent } from './GestionFournisseur/update-fournisseur/update-fournisseur.component';
+import { AddRayonComponent } from './GestionRayon/add-rayon/add-rayon.component';
+import { ListRayonComponent } from './GestionRayon/list-rayon/list-rayon.component';
+import { UpdateRayonComponent } from './GestionRayon/update-rayon/update-rayon.component';
 import { CreateReclamationComponent } from './GestionReclamation/create-reclamation/create-reclamation.component';
 import { ReclamationDetailsComponent } from './GestionReclamation/reclamation-details/reclamation-details.component';
 import { ReclamationListComponent } from './GestionReclamation/reclamation-list/reclamation-list.component';
@@ -22,6 +28,17 @@ const routes: Routes = [
   {path:"facturepayer", component:ListFacturesPayerComponent},
   {path:"facture/add", component:AddFactureComponent},
   {path:"facture/update/:id", component:UpdateFactureComponent},
+
+  {path:"fournisseur", component:ListFournisseurComponent},
+  {path:"fournisseur/add", component:AddFournisseurComponent},
+  {path:"fournisseur/update/:id", component:UpdateFournisseurComponent},
+
+  {path:"rayon", component:ListRayonComponent},
+  {path:"rayon/add", component:AddRayonComponent},
+  {path:"rayon/update/:id", component:UpdateRayonComponent},
+
+
+
   {path:"", redirectTo:"home", pathMatch:"full"},
   { path: 'stocks', component: StockListComponent },
   { path: 'create-stock', component: CreateStockComponent },

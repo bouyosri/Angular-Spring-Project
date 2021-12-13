@@ -1,0 +1,57 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <button class="btn" (click)=toadd()>add fournisseur</button>
+                    <a class="btn btn-outline-success" (click)="exportToPDF()"
+                    ><i class="fa fa-plus-square">Download PDF</i></a
+                  >
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">List Fournisseur</h4>
+                        <input
+  type="text"
+  aria-labelledby="temperature low"
+  #myInput
+  [(ngModel)]="idFournisseur"
+  (input)="recherche(idFournisseur)"
+/>
+<div [(ngModel)]="sizefournisseur">
+    {{sizefournisseur}}
+
+</div>
+                     </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        id Fournisseur
+                                    </th>
+                                    <th>
+                                        code
+                                    </th>
+                                    <th>
+                                       libelle
+                                    </th>
+                               </thead>
+                               <tbody>
+                                <tr *ngFor="let item of list ">
+                                <th>{{item.idFournisseur}}</th>
+                                <td>{{item.code}}</td>
+                                <td>{{item.libelle}}</td>
+                                <td><button class="btn btn-sm btn-primary" style="margin-left: 20px;" (click)="updateFournisseur(item.idFournisseur)" >
+                                  <i class="fa fa-pencil-square-o" ></i>update</button></td>
+                               <td><button class="btn btn-sm btn-danger" (click) ="deleteFournisseur(item)">
+                                  <i class="fa fa-trash-o"></i>delete</button></td>
+                                   </tr>
+                                     </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+  </div>
