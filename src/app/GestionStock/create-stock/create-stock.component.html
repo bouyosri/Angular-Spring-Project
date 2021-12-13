@@ -1,0 +1,63 @@
+<!--<ul className="list" *ngFor="let p of stockList">
+  <li>
+    <h1>{{ p.idStock }}</h1>
+    <div></div>
+    <p>{{ p.libelleStock }}</p>
+    <p>{{ p.qte }}</p>
+    <p>{{ p.qteMin }}</p>
+  </li>
+</ul>
+<button (click)="onSubmit()">add</button>-->
+
+<div class="col-md-6 offset-md-3">
+    <h3>Create Stock</h3>
+    <!--for browser validation add "ngNativeValidate" else the required won't work-->
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="form-group">
+        <label> libelleStock</label>
+  
+        <input
+          type="text"
+          class="form-control"
+          required
+          minlength="2"
+          id="libelleStock"
+          [(ngModel)]="stock.libelleStock"
+          name="libelleStock"
+          #uname="ngModel"
+          required
+        />
+  
+        <div *ngIf="uname.errors?.['required']">libelle is required.</div>
+        <div *ngIf="uname.errors?.['minlength']">
+          libelle must be at least 2 characters long.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label> qte</label>
+        <input
+          type="number"
+          class="form-control"
+          id="qte"
+          [(ngModel)]="stock.qte"
+          name="qte"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label> qteMin</label>
+        <input
+          type="number"
+          class="form-control"
+          id="qteMin"
+          [(ngModel)]="stock.qteMin"
+          name="qteMin"
+          required
+        />
+      </div>
+  
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  

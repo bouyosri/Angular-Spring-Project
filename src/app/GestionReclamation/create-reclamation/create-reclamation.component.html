@@ -1,0 +1,50 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Create Employee</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label> adresse</label>
+        <input
+          type="text"
+          class="form-control"
+          id="adresse"
+          [(ngModel)]="reclamation.adresse"
+          name="adresse"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label> dateReclamation</label>
+        <input
+          type="text"
+          class="form-control"
+          id="dateReclamation"
+          [(ngModel)]="reclamation.dateReclamation"
+          name="dateReclamation"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label> description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="reclamation.description"
+          name="description"
+        />
+      </div>
+      <div class="form-group">
+        <label> idClient</label>
+        <input
+          type="text"
+          class="form-control"
+          id="idClient"
+          [(ngModel)]="reclamation.clientReclamation.idClient"
+          name="idClient"
+        />
+      </div>
+  
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,50 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Update Stocks</h3>
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="form-group">
+        <label> Libelle Stock</label>
+        <input
+          type="text"
+          class="form-control"
+          required
+          minlength="2"
+          id="libelleStock"
+          [(ngModel)]="stock.libelleStock"
+          name="libelleStock"
+          #uname="ngModel"
+          required
+        />
+        <div *ngIf="uname.errors?.['required']">libelle is required.</div>
+        <div *ngIf="uname.errors?.minlength">
+          Libelle must be at least 2 characters long.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label> Qte</label>
+        <input
+          type="number"
+          class="form-control"
+          id="qte"
+          [(ngModel)]="stock.qte"
+          name="qte"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label> qteMin</label>
+        <input
+          type="number"
+          class="form-control"
+          id="qteMin"
+          [(ngModel)]="stock.qteMin"
+          name="qteMin"
+          required
+        />
+      </div>
+  
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  

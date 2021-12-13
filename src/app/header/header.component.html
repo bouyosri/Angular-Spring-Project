@@ -65,6 +65,52 @@
               </div>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button"
+                aria-expanded="true" aria-controls="navbar-dashboards">
+                <i class="ni ni-shop text-primary"></i>
+                <span class="nav-link-text">Gestion des Stocks</span>
+              </a>
+              <div class="collapse show" id="navbar-stocks">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                  <a routerLink="stocks" routerLinkActive="active" class="nav-link"
+                  >Stock List</a
+                ></li>
+                <li class="nav-item">
+                  <a routerLink="create-stock" routerLinkActive="active" class="nav-link"
+                  >Add Stock</a
+                >
+                </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button"
+                aria-expanded="true" aria-controls="navbar-dashboards">
+                <i class="ni ni-shop text-primary"></i>
+                <span class="nav-link-text">Gestion des Reclamations</span>
+              </a>
+              <div class="collapse show" id="navbar-dashboards">
+                <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                  <a
+                  routerLink="create-reclamation"
+                  routerLinkActive="active"
+                  class="nav-link"
+                  >Add Reclamation</a>
+                
+                </li>
+                <li class="nav-item">
+                  <a
+                  routerLink="reclamation-list"
+                  routerLinkActive="active"
+                  class="nav-link"
+                  >List Reclamation</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#navbar-rayon" data-toggle="collapse" role="button"
                 aria-expanded="false" aria-controls="navbar-rayon">
                 <i class="ni ni-shop text-primary"></i>

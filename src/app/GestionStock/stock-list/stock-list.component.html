@@ -1,0 +1,58 @@
+<h2>Stock List</h2>
+
+<input
+  type="text"
+  aria-labelledby="temperature low"
+  #myInput
+  [(ngModel)]="libelleStock"
+  (input)="Search()"
+/>
+<h1>
+  <a class="btn btn-outline-success" (click)="exportToExcel()"
+    ><i class="fa fa-plus-square">Download EXCEL</i></a
+  >
+  <input
+    type="file"
+    class="btn btn-outline-success"
+    (change)="upload($event)"
+  /><i class="fa fa-plus-square"></i>
+  <a class="btn btn-outline-success" (click)="exportToPDF()"
+    ><i class="fa fa-plus-square">Download PDF</i></a
+  >
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Libelle Stock</th>
+      <th>Qte</th>
+      <th>Qte Min</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stock of stockList">
+      <td>{{ stock.libelleStock }}</td>
+      <td>{{ stock.qte }}</td>
+      <td>{{ stock.qteMin }}</td>
+      <td>
+        <button (click)="updateStock(stock.idStock)" class="btn btn-info">
+          Update
+        </button>
+        <button
+          (click)="deleteStock(stock.idStock)"
+          class="btn btn-danger"
+          style="margin-left: 10px"
+        >
+          Delete
+        </button>
+        <button
+          (click)="StockDetails(stock.idStock)"
+          class="btn btn-info"
+          style="margin-left: 10px"
+        >
+          View
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
