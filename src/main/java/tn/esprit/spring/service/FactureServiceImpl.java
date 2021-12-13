@@ -49,6 +49,7 @@ public class FactureServiceImpl implements FactureService{
 	public void cancelFacture(Long id) {
 		Facture Facture = Facturerepo.findById(id).orElse(null);
 		Facture.setActive(false);
+		Facturerepo.save(Facture);
 	}
 
 	@Override

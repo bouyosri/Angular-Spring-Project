@@ -1,7 +1,6 @@
 package tn.esprit.spring.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -73,12 +72,7 @@ public class DetailFactureServiceImpl implements DetailFactureService{
 		
 		
 		
-		float total2=f.getMontantFacture();
-		float remisetotal=f.getMontantRemise();
-		total2+=c.getPrixTotal();
-		remisetotal+=c.getMontantRemise();
-		f.setMontantFacture(total2);
-		f.setMontantRemise(remisetotal);
+		CalculTotal(f);
 		facturerepo.save(f);
 			
 		return c;
@@ -114,7 +108,21 @@ public class DetailFactureServiceImpl implements DetailFactureService{
 	}
 
 	@Override
-	public void CalculTotal(float total, float Remise,Facture f) {
+	public void CalculTotal(Facture f) {
+		float total2 = 0;
+		float Remise2=0;
+		for (Object element : f.getDetailFactures()) {
+			DetailFacture detail = (DetailFacture) element;
+			total2+=detail.getPrixTotal();
+			
+			Remise2+=detail.getMontantRemise();
+			
+			
+		}
+		f.setMontantFacture(total2);
+		f.setMontantRemise(Remise2);
+		facturerepo.save(f);
+		
 		
 		
 	}

@@ -21,6 +21,6 @@ public interface DetailFactureService {
 
 	public DetailFacture updateDetailFacture(DetailFacture c);
 
-	void CalculTotal(float total, float Remise, Facture f);
+	public void CalculTotal(Facture f);
 	
 }

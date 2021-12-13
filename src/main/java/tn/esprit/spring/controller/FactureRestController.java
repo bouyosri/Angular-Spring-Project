@@ -54,6 +54,14 @@ public class FactureRestController {
 		return Facture;
 	}
 	
+	@ApiOperation(value = "Pay Facture")
+	@PostMapping("/pay-Facture/{facture-id}")
+	@ResponseBody
+	public void payFacture(@PathVariable("facture-id") long idfacture)
+	{
+		FactureService.cancelFacture(idfacture);
+	}
+	
 	@ApiOperation(value = "Supprimer un Facture")
 	@DeleteMapping("/remove-Facture/{Facture-id}")
 	@ResponseBody
