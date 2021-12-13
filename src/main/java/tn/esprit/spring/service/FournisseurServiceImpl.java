@@ -48,7 +48,7 @@ public class FournisseurServiceImpl implements FournisseurService {
 		return this.FR.findById(id).orElse(null);
 	}
 
- /*  @Override
+  /*@Override
 	public List<Fournisseur> getFournisseursByproduit(Long idProduit) {
 		// TODO Auto-generated method stub
 		return FR.getFournisseursByproduit(idProduit);

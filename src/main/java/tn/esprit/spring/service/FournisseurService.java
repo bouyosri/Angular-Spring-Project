@@ -17,7 +17,7 @@ public interface FournisseurService {
 
 	Fournisseur retrieveFournisseur(Long id);
 
-	//List<Fournisseur> getFournisseursByproduit(Long idProduit);
+//	List<Fournisseur> getFournisseursByproduit(Long idProduit);
 
 	
 	 

@@ -13,7 +13,8 @@ import tn.esprit.spring.entity.Fournisseur;
 @Repository
 public interface FournisseurRepository extends CrudRepository<Fournisseur, Long> {
  
-	/*@Query("SELECT fr FROM Fournisseur fr WHERE fr.produit.idProduit = ?1")
+	/*@Query("select f from Fournisseur f join f.Produit p where p.idProduit = ?")
+ 
 	List<Fournisseur> getFournisseursByproduit(Long idProduit);*/
 
 	

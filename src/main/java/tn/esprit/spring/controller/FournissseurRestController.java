@@ -67,7 +67,9 @@ public class FournissseurRestController {
 	@PutMapping("/modify-fournissseur")
 	@ResponseBody
 	public Fournisseur modifyFournisseur(@RequestBody Fournisseur f) {
+		System.out.println(f.getIdFournisseur());
 	return fournissseurService.updateFournisseur(f);
+	
 	}
 	/*@CrossOrigin
 	@ApiOperation(value = "Récupérer la liste des fournisseurs")
