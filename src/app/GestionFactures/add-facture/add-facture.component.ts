@@ -174,7 +174,11 @@ export class AddFactureComponent implements OnInit {
         err => {
           console.log(err);
         }
-    
+
+        setTimeout( ()=>{
+          this.router.navigate(['/facture/update/'+this.facture.idFacture]);
+          },  100)
+          
   }
   
 
@@ -225,6 +229,7 @@ export class AddFactureComponent implements OnInit {
     err => {
       console.log(err);
     }
+    
   }
   getFacture(id: number) {
     this.factureService.getFactureById(id).subscribe(
