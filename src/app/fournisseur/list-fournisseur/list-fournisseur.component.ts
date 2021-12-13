@@ -21,8 +21,9 @@ import { UpdateFournisseurComponent } from '../update-fournisseur/update-fournis
 })
 export class ListFournisseurComponent implements OnInit {
   list: fournisseur[];
-  listFournisseur: Observable<fournisseur[]>;
+  listFournisseur: fournisseur;
   searchKey:string;
+  idFournisseur:any;
   
   fournisseur:fournisseur[]=[];
   filters={
@@ -39,13 +40,14 @@ export class ListFournisseurComponent implements OnInit {
   }
   selectData() {
      
-      this.fs.getfournisseurs().subscribe(res=>{this.list=res});}
+      this.fs.getfournisseurs().subscribe(res=>{this.list=res});
+    }
       
   
       
       
 
-      deleteFournisseur(f:fournisseur) {
+  deleteFournisseur(f:fournisseur) {
         this.fs.deletefour(f).subscribe(
           res => {
             console.log(res);
@@ -133,9 +135,30 @@ export class ListFournisseurComponent implements OnInit {
           window.open(fileURL);
         });
       }
+      recherche(idFournisseur: number){
+       this.fournisseurList= this.fs.getFournisseurbyidlist(idFournisseur).subscribe(res => {
+          
+          this.fournisseurList = res;
+          setTimeout(()=>{
+            this.list=[];
+            this.list[0]=this.fournisseurList;
+            console.log( res);
+          },500)
+          
+          
+          
+
+    
+         },
+        error => console.log(error));
+       
+        
+      ;}
+
+      }
 
 
-     }
+     
 
   
   

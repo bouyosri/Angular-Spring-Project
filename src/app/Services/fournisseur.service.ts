@@ -86,6 +86,10 @@ export class FournisseurService {
             return this.http.get<fournisseur>(this.baseURL + `/fournisseurs/pdfDownload`, {
               responseType: 'blob' as 'json'});
           }
+
+          getFournisseurbyidlist(idFournisseur: number): Observable<fournisseur[]> {
+            return this.http.get<fournisseur[]>(this.baseURL + `/fournissseur/retrieve-fournissseur/${idFournisseur}`);
+          }
           
     
      
