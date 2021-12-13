@@ -126,10 +126,10 @@ export class ListFournisseurComponent implements OnInit {
 
       exportToPDF() {
         this.fs.exportPDF().subscribe((responseMessage: any) => {
-          let file = new Blob([responseMessage], {
-            type: 'application/vnd.ms-excel',
+          const file = new Blob([responseMessage], {
+            type: 'application/pdf',
           });
-          var fileURL = URL.createObjectURL(file);
+          const fileURL = URL.createObjectURL(file);
           window.open(fileURL);
         });
       }
