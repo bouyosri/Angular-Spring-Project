@@ -74,6 +74,11 @@ export class UpdateFactureComponent implements OnInit {
   }
 
 
+
+
+  
+
+
   changeIdClient(value): void {
 
     console.log((value.target as HTMLInputElement).value);
@@ -305,6 +310,7 @@ export class UpdateFactureComponent implements OnInit {
   addDetailFacture(){
     console.log("inside detail "+this.produit.libelle);
     
+    this.detailFacture.idDetailFacture=0;
     this.detailFacture.produit=this.produit;
     this.detailFacture.pourcentageRemise=this.remiseProduit;
     this.detailFacture.qte=this.qte;
