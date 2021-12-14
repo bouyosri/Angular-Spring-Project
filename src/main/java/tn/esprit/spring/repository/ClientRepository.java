@@ -29,4 +29,29 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
 	@Param("cat") String cat);
 	
 	
+	
+void findByDateNaissanceGreaterThan(Date dateN);
+	 
+	
+	
+	@Query("SELECT c FROM Client c WHERE c.dateNaissance BETWEEN :d1 and :d2")
+	List<Client> retrieveClientsByDateNaissance(@Param("d1") Date d1 , @Param("d2") Date d2);
+	
+	
+
+	
+	
+	@Query(value="SELECT COUNT(*) from facture f where f.client_facure_id_client= ?1" , nativeQuery= true)
+	 int getnbrefacture(Long id_client);
+	
+	@Query(value="SELECT SUM(montant_facture) from facture f where f.client_facure_id_client= ?1" , nativeQuery= true)
+	 float gettotalfacture(Long id_client);
+	
+	@Query(value="SELECT SUM(montant_facture) from facture f " , nativeQuery= true)
+	 float gettotalfactures();
+	
+	@Query(value="SELECT * from client c where c.nom LIKE %?1% " , nativeQuery= true)
+	List<Client> search(String nom);
+	
+	
 }

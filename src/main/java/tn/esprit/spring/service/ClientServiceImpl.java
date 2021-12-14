@@ -17,53 +17,106 @@ import tn.esprit.spring.repository.ClientRepository;
 public class ClientServiceImpl implements ClientService {
 	
 	@Autowired
-	ClientRepository clientrepo;
+	ClientRepository clientRepository;
 
 	@Override
 	public List<Client> retrieveAllClients() {
-        return (List<Client>) this.clientrepo.findAll();
+		 List<Client> clients=(List<Client>)clientRepository.findAll() ;
+		
+		 
+		 return clients;
 	}
+	
+	
 
 	@Override
 	public Client addClient(Client c) {
-        return this.clientrepo.save(c);
-	}
-
-	@Override
-	public void deleteClient(Long id) {
-		clientrepo.deleteById(id);
+		return clientRepository.save(c);
 		
 	}
 
 	@Override
+	public void deleteClient(Long id) {
+		clientRepository.deleteById(id);
+
+	}
+
+	@Override
 	public Client updateClient(Client c) {
-        Client Client = clientrepo.findById(c.getIdClient()).orElse(null);
-		if(Client != null)
-			clientrepo.save(c);
-        return c;
+		
+		return clientRepository.save(c);
 	}
 
 	@Override
 	public Client retrieveClient(Long id) {
-		return this.clientrepo.findById(id).orElse(null);
+		
+		return clientRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<Client> retrieveClientsByDate(Date d1,Date d2) {
-		return clientrepo.retrieveClientsByDate(d1, d2);
+	public List<Client> getClientWithDate(Date d1 ,Date d2) {
+		return clientRepository.retrieveClientsByDateNaissance( d1,d2);
+
 	}
-	
+
+
+
 	@Override
-	public List<Client> retrieveClientsByDate_SQL(Date d1,Date d2) {
-		return clientrepo.retrieveClientsByDate_SQL(d1, d2);
+	public int nbTotalFacture(Long id) {
+		int x= clientRepository.getnbrefacture(id);
+		
+		return x;
 	}
+
+
+
+	@Override
+	public float totalfactures(Long id) {
+		float y=clientRepository.gettotalfacture(id);
+		return y;
+	}
+
+
+
+	@Override
+	public float CAT() {
+		float y=clientRepository.gettotalfactures();
+		return y;
+	}
+
+
+
+	@Override
+	public List<Client> search(String nom) {
+	     
+		return clientRepository.search(nom);
+	}
+
+
+
+	@Override
+	public List<Client> retrieveClientsByDate(Date d1, Date d2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Client> retrieveClientsByDate_SQL(Date d1, Date d2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 	@Override
 	public float getChiffreAffaireParCategorieClient(CategorieClient categorieClient, Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
-		clientrepo.retrieveClientsByCat(categorieClient.toString());
-		System.out.print(categorieClient);
-		return 0;	
+		return 0;
 	}
+	
+	
+	
 
 }

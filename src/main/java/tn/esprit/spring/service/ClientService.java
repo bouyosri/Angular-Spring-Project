@@ -26,5 +26,15 @@ public interface ClientService
 	
 	public float getChiffreAffaireParCategorieClient(CategorieClient categorieClient,
 			Date startDate, Date endDate);
+	
+	
+	//7777777777
+	List <Client> getClientWithDate(Date d1 ,Date d2);
+	
+	int nbTotalFacture(Long id);
+	float totalfactures(Long id);
+	float CAT();
+	
+	List<Client> search(String nom);
 
 }

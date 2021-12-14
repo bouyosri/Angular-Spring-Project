@@ -30,46 +30,80 @@ import tn.esprit.spring.service.StockServiceImpl;
 @Api(tags = "Client management")
 @RequestMapping("/clients")
 public class ClientRestController {
-	@Autowired
-	ClientServiceImpl clientService;
-	
-	@ApiOperation(value = "Récupérer la liste des clients")
-	@GetMapping("/retrieve-all-clients")
-	@ResponseBody
-	public List<Client> getAllClients() {
-		List<Client> clients = clientService.retrieveAllClients();
-		return clients;
-	}
-	
-	@ApiOperation(value = "Récupérer un client")
-	@GetMapping("/retrieve-client/{client-id}")
-	@ResponseBody
+
+		@Autowired
+		ClientServiceImpl clientService;
+		
+		// http://localhost:8013/SpringMVC/client/retrieve-all-clients
+		@GetMapping("/retrieve-all-clients")
+		@ResponseBody
+		public List<Client>getClients() {
+		List<Client> listClients = clientService.retrieveAllClients();
+		return listClients;
+		}
+		
+		
+		@GetMapping("/searchclient/{nom}")
+		@ResponseBody
+		public List<Client>search(@PathVariable("nom") String nom) {
+		List<Client> listClients = clientService.search(nom);
+		return listClients;
+		}
+		
+		
+		
+		//http://localhost:8013/SpringMVC/client/retrieve-client/1
+		@GetMapping("/retrieve-client/{client-id}")
+		@ResponseBody
 		public Client retrieveClient(@PathVariable("client-id") Long clientId) {
 		return clientService.retrieveClient(clientId);
-	}
-	
-	@ApiOperation(value = "Ajouter un client")
-	@PostMapping("/add-client")
-	@ResponseBody
-	public Client addClient(@RequestBody Client c)
-	{
+		}
+		
+		
+		@GetMapping("/nbfacture/{client-id}")
+		@ResponseBody
+		public int retrieveClientFactureNbr(@PathVariable("client-id") Long clientId) {
+		return clientService.nbTotalFacture(clientId);
+		}
+		
+		@GetMapping("/totalfactures/{client-id}")
+		@ResponseBody
+		public float retrieveClientFactureTotal(@PathVariable("client-id") Long clientId) {
+		return clientService.totalfactures(clientId);
+		}
+		
+		@GetMapping("/CAT")
+		@ResponseBody
+		public float FactureTotal() {
+		return clientService.CAT();
+		}
+		
+		// http://localhost:8013/SpringMVC/client/add-client
+		@PostMapping("/add-client")
+		@ResponseBody
+		public Client addClient(@RequestBody Client c)
+		{
 		Client client = clientService.addClient(c);
 		return client;
-	}
-	
-	@ApiOperation(value = "Modifier un client")
-	@PutMapping("/modify-client")
-	@ResponseBody
-	public Client modifyClient(@RequestBody Client client) {
-	return clientService.updateClient(client);
-	}
-	
-	@ApiOperation(value = "Supprimer un client")
-	@DeleteMapping("/remove-client/{client-id}")
-	@ResponseBody
-	public void removeClient(@PathVariable("client-id") Long clientId) {
-	clientService.deleteClient(clientId);
-	}
-	
+		}
+		
+		
+		
+		//http://localhost:8013/SpringMVC/client/remove-client/{client-id}
+		@DeleteMapping("/remove-client/{client-id}")
+		@ResponseBody
+		public void removeClient(@PathVariable("client-id") Long clientId) {
+		clientService.deleteClient(clientId);
+		}
+		
+		//http://localhost:8013/SpringMVC/client/modify-client
+		@PutMapping("/modify-client")
+		@ResponseBody
+		public Client modifyClient(@RequestBody Client client) {
+		return clientService.updateClient(client);
+		}
+		
+
+
 
 }
