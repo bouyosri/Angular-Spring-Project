@@ -1,0 +1,94 @@
+
+<div class="table-responsive py-4">
+    <div class="col-lg-6 col-5 " >
+      <button id="btnPopup" class="btn btn-sm btn-neutral mb-3">New +</button>
+      <div id="overlay" class="overlay">
+        <div id="popup" class="popup">
+          
+        <span id="btnClose" class="btnClose">&times;</span>
+      
+        <div class="container">
+          <form  class="m-auto"  style="max-width:600px">
+            <h3 class="my-4">Add Product</h3>
+            <hr class="my-4" />
+            <div class="form-group mb-3 row"><label for="Product label"  class="col-md-5 col-form-label">Product name</label>
+              <div class="col-md-7"><input type="text" [(ngModel)]="produit.libelle"  class="form-control form-control-lg" id="first-name" name="aa" required></div>
+            </div>
+            <div class="form-group mb-3 row"><label for="Unit price" class="col-md-5 col-form-label">Unit Price</label>
+              <div class="col-md-7"><input type="text" [(ngModel)]="produit.prixUnitaire"  class="form-control form-control-lg" id="last-name" name="aa"  required></div>
+            </div>
+            <div class="form-group mb-3 row"><label for="Code" class="col-md-5 col-form-label">Code</label>
+              <div class="col-md-7"><input type="text" [(ngModel)]="produit.code"   class="form-control form-control-lg" id="birth-date4" name="aa"  required></div>
+            </div>
+            <div class="form-group mb-3 row"><label for="Code" class="col-md-5 col-form-label">rayon</label>
+              <div class="col-md-7"><select [(ngModel)]="produit.idRayon" name="rayon" >
+       
+                <option value={{p.idRayon}} *ngFor="let p of listRayons" >{{p.libelle}} - {{p.idRayon}}</option>
+                
+            </select></div>
+            </div>
+            <div class="form-group mb-3 row"><label for="Code" class="col-md-5 col-form-label">Category</label>
+              <div class="col-md-7"><select [(ngModel)]="produit.idDetail"  name="detail">
+                     
+                <option value={{d.idDetailProduit}} *ngFor="let d of listDetails">{{d.categorieProduit}}</option>
+                
+            </select></div>
+            </div>
+            <div class="form-group mb-3 row"><label for="Code" class="col-md-5 col-form-label">Stock</label>
+              <div class="col-md-7"><select [(ngModel)]="produit.idStock" name="stock" >
+                     
+                <option value={{s.idStock}} *ngFor="let s of listStocks">{{s.libelleStock}}</option>
+                
+            </select></div>
+            </div>
+            
+            
+            <hr class="my-4" />
+            <div class="form-group mb-3 row"><label for="send-a-message10" class="col-md-5 col-form-label"></label>
+              <div class="col-md-7"><button class="btn btn-primary btn-lg" type="submit" (click)="addProduit()">Add!</button></div>
+            </div>
+          </form>
+        </div>
+        </div>
+        </div>
+      
+    </div>
+      <table class="table table-flush" id="datatable-buttons">
+        <thead class="thead-light">
+          <div class="col-lg-6 col-5 text-right">
+            
+            
+          </div>
+          
+          <tr>
+            <th>Libelle</th>
+            <th>Code </th>
+            <th>prix unitaire</th>
+            <th>prix unitaire</th>
+            <th>action</th>
+  
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Libelle</th>
+            <th>Code </th>
+            <th>prix unitaire</th>
+            <th>action</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr *ngFor="let p of listProduits">
+              <td *ngIf="p.libelle">{{p.libelle}} </td>
+              <td *ngIf="p.code">{{p.code}} </td>
+              <td *ngIf="p.prixUnitaire">{{p.prixUnitaire}} </td>
+              <td *ngIf="p.prixUnitaire">{{p.stockproduit.idStock}} </td>
+              <td><a class="btn btn-sm btn-primary" href= "/singleProduct/{{p.idProduit}}">View</a>
+                <button class="btn btn-sm btn-danger" (click)="deleteProduit(p.idProduit)" >Delete</button></td>
+              
+              
+             
+          </tr>
+        </tbody>
+      </table>
+    </div>
